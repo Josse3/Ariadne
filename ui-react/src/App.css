@@ -1,0 +1,14 @@
+*,*::after,*::before {
+  box-sizing: inherit;
+}
+
+:root {
+  --window-height: 100vh;
+  --banner-size: 5.2em;
+  --header-height: 3.5em;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: Sans-serif;
+}

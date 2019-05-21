@@ -1,0 +1,50 @@
+:root {
+  --box-height: 20em;
+}
+
+.navbox-container {
+  height: var(--box-height);
+  color: white;
+  margin: 0.5em 1em;
+  flex: 1 1 50%;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.navbox-content {
+  padding: 1em;
+  height: inherit;
+  width: inherit;
+  background-size: cover;
+  background-blend-mode: multiply;
+  transition: transform 0.5s;
+  transform: scale(1);
+}
+
+.navbox-container a {
+  text-decoration: none;
+  color: white;
+  height: var(--box-height);
+}
+
+.navbox-content:hover {
+  transition: transform 0.5s;
+  transform: scale(1.2);
+}
+
+@media only screen and (min-width: 1200px) {
+  :root {
+    --box-height: 25em;
+  }
+
+  .navbox-container {
+    margin: 1em 2em;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .navbox-container {
+    margin: 1em 5em;
+  }
+}

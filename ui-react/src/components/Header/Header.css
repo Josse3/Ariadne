@@ -1,0 +1,16 @@
+.header {
+  background-image: url('./header-background.png');
+  background-size: cover;
+  background-color: grey;
+  background-blend-mode: multiply;
+  text-align: center;
+  height: var(--header-height);
+  font-size: calc(var(--header-height) / 2.5);
+  position: absolute;
+  width: 100%;
+}
+
+.header a {
+  text-decoration: none;
+  color: white;
+}

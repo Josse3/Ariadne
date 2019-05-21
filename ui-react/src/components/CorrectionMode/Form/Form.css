@@ -1,0 +1,4 @@
+.form {
+  text-align: center;
+  padding-top: calc(var(--header-height) * 1.25);
+}

@@ -1,0 +1,4 @@
+.add-tool {
+    height: var(--window-height);
+    background-color: lightblue;
+}

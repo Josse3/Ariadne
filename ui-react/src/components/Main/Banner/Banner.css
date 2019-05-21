@@ -1,0 +1,12 @@
+.banner-header {
+  margin: 0;
+  font-size: var(--banner-size);
+  color: white;
+  text-align: center;
+}
+
+@media only screen and (max-height: 900px) {
+  .banner-header {
+    margin: calc(var(--banner-size) / 2) auto;
+  }
+}

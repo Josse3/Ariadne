@@ -1,0 +1,17 @@
+.navbox-line {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 900px) {
+  .navbox-line {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-height: 800px) {
+  .navbox-line {
+    margin-top: 20em;
+  }
+}
