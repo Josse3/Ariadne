@@ -4,7 +4,7 @@ body {
 }
 
 .main {
-  height: var(--window-height);
+  min-height: var(--window-height);
   background-image: url('../../Banner-image-cut.png');
   background-size: cover;
   background-color: grey;

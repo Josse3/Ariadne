@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 
 // Importing data
-const rawData = fs.readFileSync('./dictionary.json',dataGotten);
+const rawData = fs.readFileSync('./dictionary.json', dataGotten);
 const dictionary = JSON.parse(rawData);
 
 function dataGotten() {
@@ -18,17 +18,17 @@ const port = process.env.PORT || 3001;
 app.listen(port);
 
 // Get requests
-  // Get full JSON-file
-app.get('/api/search',(request,response) => {
+// Get full JSON-file
+app.get('/api/search', (request, response) => {
   response.send(dictionary);
 });
 
 // Post requests
-  // Substantives first declension
-app.get('/api/add/subst1/:word/:genus/:translation/:page',postSubst1);
+// Substantives first declension
+app.get('/api/add/subst1/:word/:genus/:translation/:page', postSubst1);
 
 function postSubst1(request, response) {
-  const {word, genus, translation, page} = request.params;
+  const { word, genus, translation, page } = request.params;
   let reply;
   // Error handling
   if (word && genus && translation && page) {
@@ -47,7 +47,7 @@ function postSubst1(request, response) {
     }
     // Saving data to JSON file
     const dataToSend = JSON.stringify(dictionary, null, 2);
-    fs.writeFile('dictionary.json',dataToSend, sent);
+    fs.writeFile('dictionary.json', dataToSend, sent);
 
     function sent() {
       // Empty, same as dataGotten()
