@@ -40,7 +40,19 @@ class Form extends React.Component {
     saveWord(event) {
         const toSave = {}
         Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key]);
-        fetch('/api/search')
+        if (toSave.woord && toSave.genus && toSave.vertaling && toSave.pagina) {
+            fetch(`/api/add/subst1/${toSave.woord}/${toSave.genus}/${toSave.vertaling}/${toSave.pagina}`)
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.response === 'ok') {
+                    console.log('Post request succeeded.');
+                } else {
+                    console.log('Post requets was denied by the API.');
+                }
+            });
+        } else {
+            console.log('Invalid or incomplete input.');
+        }
     }
 
     render() {
