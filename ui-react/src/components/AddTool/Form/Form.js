@@ -9,13 +9,13 @@ class Form extends React.Component {
             values: {
                 subst1: {}
             },
-            history: {} 
+            history: {}
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.saveWord = this.saveWord.bind(this);
-        
+
     }
 
     handleChange(event) {
@@ -34,22 +34,22 @@ class Form extends React.Component {
     handleKeyDown(event) {
         if (event.key === 'Enter') {
             this.saveWord();
-        } 
+        }
     }
 
     saveWord(event) {
-        const toSave = {}
+        const toSave = {};
         Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key]);
         if (toSave.woord && toSave.genus && toSave.vertaling && toSave.pagina) {
-            fetch(`/api/add/subst1/${toSave.woord}/${toSave.genus}/${toSave.vertaling}/${toSave.pagina}`)
-            .then(response => response.json())
-            .then(jsonResponse => {
-                if (jsonResponse.response === 'ok') {
-                    console.log('Post request succeeded.');
-                } else {
-                    console.log('Post requets was denied by the API.');
-                }
-            });
+            fetch(`/api/add/${toSave.woord}?type=subst1&genus=${toSave.genus}&translation=${toSave.vertaling}&page=${toSave.pagina}`, { method: 'PUT' })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw Error('Request failed.');
+                    }
+                })
+                .then(jsonResponse => console.log(jsonResponse));
         } else {
             console.log('Invalid or incomplete input.');
         }
@@ -62,13 +62,13 @@ class Form extends React.Component {
         return (
             <div className="addtool-form">
                 <h1>Substantieven eerste vervoeging</h1>
-                    {fields.subst1.map((field, i) => {
-                        if (i !== (fields.subst1.length - 1)) {
-                            return <input type="text" key={'input_' + field} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" />
-                        } else {
-                            return <input type="text" key={'input_' + field} name={field} placeholder={field} onChange={this.handleChange} onKeyDown={this.handleKeyDown} autoComplete="off" />
-                        }
-                    })}
+                {fields.subst1.map((field, i) => {
+                    if (i !== (fields.subst1.length - 1)) {
+                        return <input type="text" key={'input_' + field} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" />
+                    } else {
+                        return <input type="text" key={'input_' + field} name={field} placeholder={field} onChange={this.handleChange} onKeyDown={this.handleKeyDown} autoComplete="off" />
+                    }
+                })}
                 <button type="submit" onClick={this.saveWord}>Opslaan</button>
             </div>
         );

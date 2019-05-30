@@ -2,6 +2,7 @@ import React from 'react';
 import './PocketMode.css';
 import ExcercisePage from '../ExcercisePage/ExcercisePage';
 import Header from '../Header/Header';
+import Ariadne from '../../util/Ariadne';
 
 class PocketMode extends ExcercisePage {
     constructor(props) {
@@ -46,8 +47,8 @@ class PocketMode extends ExcercisePage {
         const essentialWordPropertiesList = Object.keys(essentialWordProperties);
         const solutionHTML = essentialWordPropertiesList.map(item => {
             return (
-                <div className="solution-element">
-                    <h2>{item}</h2>
+                <div key={item} className="solution-element">
+                    <h2>{Ariadne.toDutch(item)}</h2>
                     <h3>{essentialWordProperties[item]}</h3>
                 </div>
             )
@@ -81,13 +82,14 @@ class PocketMode extends ExcercisePage {
 
     async componentDidMount() {
         this.fetchData().then(this.initializeFirstWord);
+        console.log(Ariadne);
     }
 
     render() {
         return (
             <div className="excercise pocket-mode">
                 <Header />
-                <h1>{this.state.quizdata.currentWord ? this.state.quizdata.currentWord : <span className="error">Fout bij laden</span>}</h1>
+                <h1>{this.state.quizdata.currentWord ? `${Ariadne.toGreek(this.state.quizdata.currentWord)}, ${Ariadne.renderGenus(this.state.dictionary[this.state.quizdata.currentWord].genus)}` : <span className="error">Fout bij laden</span>}</h1>
                 <div className="solution">
                     {this.state.quizdata.solutionHTML}
                 </div>
