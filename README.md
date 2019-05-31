@@ -1,3 +1,4 @@
+# Ariadne
 Ariadne (previously as "GrieksVoc") is a web application that makes it able to study vocabulary of the ancient Greek language online. 
 
 This application was created using an express API as a database structure (this will however shortly be changed to a SQL-database!), and ReactJS as a ui-framework. 
