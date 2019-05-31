@@ -39,10 +39,15 @@ class PocketMode extends ExcercisePage {
         const { currentWord } = this.state.quizdata;
         const wordPropertiesObject = this.state.dictionary[currentWord];
         // Deleting irrelevant info for the user
-        const essentialWordProperties = wordPropertiesObject;
-        delete essentialWordProperties.genus;
-        delete essentialWordProperties.type;
-        delete essentialWordProperties.page;
+        const essentialWordProperties = {};
+        const relevantKeys = ['translation'];
+        const wordPropertiesList = Object.keys(wordPropertiesObject);
+        wordPropertiesList.forEach(key => {
+            if (relevantKeys.indexOf(key) != -1) {
+                essentialWordProperties[key] = wordPropertiesObject[key];
+            }
+        })
+
         // Mapping it into an HTML element to display to the user
         const essentialWordPropertiesList = Object.keys(essentialWordProperties);
         const solutionHTML = essentialWordPropertiesList.map(item => {
@@ -60,6 +65,7 @@ class PocketMode extends ExcercisePage {
             },
             solutionPage: true
         })
+        console.log(this.state.dictionary[currentWord]);
     }
 
     getNewRandomWord() {
@@ -77,19 +83,22 @@ class PocketMode extends ExcercisePage {
                 currentWord: newCurrentWord
             },
             solutionPage: false
-        }, () => console.log(this.state.quizdata))
+        })
     }
 
     async componentDidMount() {
         this.fetchData().then(this.initializeFirstWord);
-        console.log(Ariadne);
     }
 
     render() {
+        const { dictionary, quizdata } = this.state;
+        const { currentWord } = quizdata;
+        console.log(dictionary[currentWord]);
+
         return (
             <div className="excercise pocket-mode">
                 <Header />
-                <h1>{this.state.quizdata.currentWord ? `${Ariadne.toGreek(this.state.quizdata.currentWord)}, ${Ariadne.renderGenus(this.state.dictionary[this.state.quizdata.currentWord].genus)}` : <span className="error">Fout bij laden</span>}</h1>
+                <h1>{currentWord ? `${Ariadne.toGreek(currentWord)}, ${Ariadne.renderGenus(dictionary[currentWord].genus)}` : <span className="error">Fout bij laden</span>}</h1>
                 <div className="solution">
                     {this.state.quizdata.solutionHTML}
                 </div>
