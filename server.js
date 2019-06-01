@@ -19,10 +19,37 @@ app.get('/api/search', (req, res, next) => {
   res.send(dictionary);
 });
 
+// Validation
+app.put('/api/add/:word', (req, res, next) => {
+  const {word} = req.params;
+  if (!typeof word === 'string') {
+    return res.status(400).send();
+  }
+  if (!typeof req.query === 'object') {
+    return res.status(400).send();
+  }
+  next();
+});
+
 // Put requests
 app.put('/api/add/:word', (req, res, next) => {
-  const { word } = req.params;
-  const updates = req.query;
+  const wordParam = req.params.word;
+  let word;
+  const slashRegExp = /%2F/g;
+  if (slashRegExp.test(wordParam)) {
+    word = wordParam.replace(slashRegExp, '/');
+  } else {
+    word = wordParam;
+  }
+  const encodedupdates = req.query;
+  const updates = {};
+  Object.keys(encodedupdates).forEach(key => {
+    if (!slashRegExp.test(key)) {
+      updates[key] = encodedupdates[key];
+    } else {
+      updates[key] = encodedupdates[key].replace(slashRegExp, '/');
+    }
+  });
   if (word) {
     updates.page = Number(updates.page);
     dictionary[word] = updates;
