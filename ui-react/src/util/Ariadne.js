@@ -126,6 +126,8 @@ const Ariadne = {
                     return 'ξ';
                 case 'o':
                     return 'ο';
+                case 'o/':
+                    return 'ό';
                 case 'p':
                     return 'π';
                 case 'r':
