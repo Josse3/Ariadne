@@ -1,4 +1,5 @@
 import React from 'react';
+import './Navboxline.css';
 import Navbox from '../../Main/Navboxline/Navbox/Navbox';
 
 import formImg from '../form.png';
@@ -13,7 +14,7 @@ function Navboxline() {
                 backgroundColor="darkred"
                 highlightColor="#660000"
                 backgroundImage={formImg}
-                href="correctionmode"
+                href="vocabularium/correctionmode"
             />
             <Navbox
                 header="Pocket-versie"
@@ -21,7 +22,7 @@ function Navboxline() {
                 backgroundColor="green"
                 highlightColor="#004d00"
                 backgroundImage={pocketImg}
-                href="pocketmode"
+                href="vocabularium/pocketmode"
             />
         </div>
     );

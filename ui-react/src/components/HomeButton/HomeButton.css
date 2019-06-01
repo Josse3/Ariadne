@@ -1,0 +1,16 @@
+.home-btn {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    text-align: center;
+}
+
+.home-btn img {
+    height: 4em;
+}
+
+.home-btn p {
+    margin: 0;
+    color: rgb(226, 216, 216);
+    font-weight: bold;
+}

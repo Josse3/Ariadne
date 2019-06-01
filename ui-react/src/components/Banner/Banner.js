@@ -4,7 +4,7 @@ import './Banner.css';
 class Banner extends React.Component {
   render() {
     return (
-      <h1 className="greek banner-header">Ἀριάδνη</h1>
+      <h1 className="banner-header">{this.props.text ? this.props.text : 'Ἀριάδνη'}</h1>
     );
   }
 }
