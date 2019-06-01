@@ -18,10 +18,23 @@ function dataGotten() {
 app.get('/api/search', (req, res, next) => {
   res.send(dictionary);
 });
+// Get JSON data with defined start and end page
+app.get('/api/searchSpecific/:start/:end', (req, res, next) => {
+  const { start, end } = req.params;
+  const startNum = Number(start);
+  const endNum = Number(end);
+  if (!startNum || !endNum) {
+    return res.status(400).send();
+  }
+  const keysToSend = Object.keys(dictionary).filter(key => dictionary[key].page >= startNum && dictionary[key].page <= endNum);
+  const dataToSend = {};
+  keysToSend.forEach(key => dataToSend[key] = dictionary[key]);
+  res.send(dataToSend);
+})
 
 // Validation
 app.put('/api/add/:word', (req, res, next) => {
-  const {word} = req.params;
+  const { word } = req.params;
   if (!typeof word === 'string') {
     return res.status(400).send();
   }

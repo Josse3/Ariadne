@@ -3,18 +3,30 @@
     "type": "subst1",
     "genus": "m / v",
     "translation": "bode",
-    "page": 1
+    "page": 21
   },
   "a)delfo/s": {
     "type": "subst1",
     "genus": "m",
     "translation": "broer",
-    "page": 1
+    "page": 21
   },
   "a)/nqrwpos": {
     "type": "subst1",
     "genus": "m / v",
     "translation": "mens",
-    "page": 1
+    "page": 21
+  },
+  "a)riqmo/s": {
+    "type": "subst1",
+    "genus": "m",
+    "translation": "getal, nummer / telling",
+    "page": 22
+  },
+  "bwmo/s": {
+    "type": "subst1",
+    "genus": "m",
+    "translation": "altaar",
+    "page": 22
   }
 }

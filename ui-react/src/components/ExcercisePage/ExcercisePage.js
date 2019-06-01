@@ -9,9 +9,18 @@ class ExcercisePage extends React.Component {
         this.fetchData = this.fetchData.bind(this);
     }
 
-    async fetchData() {
-        const data = await fetch('/api/search/').then(response => response.json());
-        this.setState({ dictionary: data });
+    async fetchData(pageStart, pageEnd) {
+        if (pageStart && pageEnd) {
+            const data = await fetch('/api/searchSpecific/pageStart/pageEnd').then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            });
+            this.setState({ dictionary: data });
+        } else {
+            const data = await fetch('/api/search/').then(response => response.json());
+            this.setState({ dictionary: data });
+        }
     }
 }
 
