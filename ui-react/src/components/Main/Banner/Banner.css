@@ -7,6 +7,6 @@
 
 @media only screen and (max-height: 900px) {
   .banner-header {
-    margin: calc(var(--banner-size) / 2) auto;
+    margin: auto;
   }
 }

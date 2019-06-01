@@ -3,6 +3,7 @@
   background-size: cover;
   background-color: grey;
   background-blend-mode: multiply;
+  background-position: center;
   text-align: center;
   height: var(--header-height);
   font-size: calc(var(--header-height) / 2.5);

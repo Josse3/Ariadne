@@ -1,0 +1,20 @@
+.selector {
+    text-align: center;
+}
+
+.selector form {
+    text-align: center;
+    display: inline-block;
+    margin: auto;
+}
+
+.selector select {
+    padding: 0.5em 1em;
+    margin: 0 1em;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+.selector button {
+    display: inline;
+}

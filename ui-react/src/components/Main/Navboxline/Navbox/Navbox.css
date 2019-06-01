@@ -33,6 +33,12 @@
   transform: scale(1.2);
 }
 
+@media only screen and (min-width: 700px) and (orientation: landscape) {
+  .navbox-container {
+    max-height: 46vh;
+  }
+}
+
 @media only screen and (min-width: 1200px) {
   :root {
     --box-height: 25em;

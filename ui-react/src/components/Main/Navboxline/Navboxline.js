@@ -2,28 +2,28 @@ import React from 'react';
 import Navbox from './Navbox/Navbox';
 import './Navboxline.css';
 
-import formImg from './form.png';
-import pocketImg from './pocket.png';
+import vocImg from './book-pile.png';
+import dotsImg from './three-dots.svg';
 
 class Navboxline extends React.Component {
   render() {
     return (
       <div className="navbox-line">
         <Navbox
-        header="Full option"
-        description="Studeer vocabularium en krijg aangepaste correctie door de app"
+        header="Studeer vocabularium"
+        description="Verrijk je woordenschat van de Griekse taal op verschillende manieren."
         backgroundColor="darkred"
         highlightColor="#660000"
-        backgroundImage={formImg}
-        href="correctionmode"
+        backgroundImage={vocImg}
+        href="vocabularium"
         />
         <Navbox
-        header="Pocket-versie"
-        description="Maak uit voor jezelf wat goed of fout is: vlug, efficient en geoptimaliseerd voor GSM's"
-        backgroundColor="green"
-        highlightColor="#004d00"
-        backgroundImage={pocketImg}
-        href="pocketmode"
+        header="Meer"
+        description="Meer tools voor het (be)studeren en begrijpen van de Griekse taal, teksten en auteurs."
+        backgroundColor="#3333ff"
+        highlightColor="#0000b3"
+        backgroundImage={dotsImg}
+        href="more"
         />
       </div>
     )
