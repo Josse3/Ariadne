@@ -7,7 +7,7 @@
     padding: var(--header-height) 0 1em 0;
 }
 
-.addtool-form input, button {
+.addtool-form input, .addtool-form button {
     margin: 0 1em;
     padding: 0.75em;
     border-radius: 0.5em;
@@ -23,4 +23,5 @@
     background-color: rgb(1, 1, 102);
     color: white;
     width: 10em;
+    cursor: pointer;
 }

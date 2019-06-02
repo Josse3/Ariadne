@@ -9,5 +9,19 @@
 }
 
 .more .content {
-    padding: calc(var(--header-height) + 1.5em) 0 2rem 0;
+    padding: calc(var(--header-height) + 2.5rem) 0 2rem 0;
+}
+
+.more .content select, .more .content button {
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
+}
+
+.more .content button {
+    margin: 0 1em;
+    padding: 0.75em;
+    border-radius: 0.5em;
+    border: none;
+    background-color: rgb(1, 1, 102);
+    color: white;
+    cursor: pointer;
 }
