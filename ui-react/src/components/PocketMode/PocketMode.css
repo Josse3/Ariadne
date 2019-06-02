@@ -4,12 +4,9 @@
     text-align: center;
 }
 
-.pocket-mode *:nth-child(2) {
-    padding: var(--header-height) 0 2rem 0;
-}
-
-.pocket-mode h1 {
-    margin: 3rem auto;
+.pocket-mode .rehearsal:nth-child(2) {
+    padding: calc(var(--header-height) + 2rem) 0 2rem 0;
+    z-index: 500;
 }
 
 .pocket-mode .word-select {
