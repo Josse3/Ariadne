@@ -6,6 +6,7 @@
   --window-height: 100vh;
   --banner-size: 5.2em;
   --header-height: 3.5em;
+  --btn-color-primary:  rgb(1, 1, 102);
 }
 
 html {
