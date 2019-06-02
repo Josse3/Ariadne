@@ -17,11 +17,14 @@
 }
 
 button.next, button.show {
+    border: none;
+    border-radius: 0.5em;
+    padding: 1em;
     cursor: pointer;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
 }
 
 button.next {
     background-color: rgb(21, 21, 167);
     color: white;
-    padding: 1em;
 }
