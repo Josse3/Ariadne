@@ -9,16 +9,21 @@ class PocketMode extends ExcercisePage {
         super(props);
         this.state = {
             ...this.state,
-            quizdata: {}
+            quizdata: {},
+            wordparams: {},
+            process: 'selecting'
         };
         this.initializeFirstWord = this.initializeFirstWord.bind(this);
         this.getNewRandomWord = this.getNewRandomWord.bind(this);
         this.showSolution = this.showSolution.bind(this);
+        this.updateWordParams = this.updateWordParams.bind(this);
+        this.startRehearsing = this.startRehearsing.bind(this);
     }
 
     initializeFirstWord() {
         // Getting the data from the state and listing the words
         const { dictionary } = this.state;
+        console.log(dictionary);
         const possibleWords = Object.keys(dictionary);
         // Getting a random first word
         const index = Math.floor(Math.random() * possibleWords.length);
@@ -32,7 +37,7 @@ class PocketMode extends ExcercisePage {
                 remainingWords,
                 currentWord: firstWord
             }
-        });
+        }, () => console.log(this.state.currentWord));
     }
 
     showSolution() {
@@ -88,21 +93,57 @@ class PocketMode extends ExcercisePage {
         })
     }
 
-    async componentDidMount() {
-        this.fetchData().then(this.initializeFirstWord);
+    updateWordParams(event) {
+        const { name } = event.target;
+        const { value } = event.target
+        this.setState({
+            ...this.state,
+            wordparams: {
+                ...this.state.wordparams,
+                [name]: value
+            }
+        });
+    }
+
+    async getSelectedWords() {
+        const { startPage } = this.state.wordparams;
+        const { endPage } = this.state.wordparams;
+        this.fetchData(startPage, endPage).then(() => console.log(this.state.dictionary));
+    }
+
+    startRehearsing() {
+        this.getSelectedWords().then(() => {
+            console.log(this.state.dictionary);
+            this.setState({
+                process: 'rehearsing'
+            })
+            this.initializeFirstWord();
+        });
     }
 
     render() {
         const { dictionary, quizdata } = this.state;
         const { currentWord } = quizdata;
-        return (
-            <div className="excercise pocket-mode">
-                <Header />
+        const selectWordsHTML = (
+            <div className="word-select">
+                <input name="startPage" placeholder="Beginpagina" onChange={this.updateWordParams} autoComplete="off" />
+                <input name="endPage" placeholder="Eindpagina" onChange={this.updateWordParams} autoComplete="off" />
+                <button className="select-btn" onClick={this.startRehearsing}>Overhoren</button>
+            </div>
+        )
+        const rehearsalHTML = (
+            <div className="rehearsal">
                 <h1>{currentWord ? `${Ariadne.toGreek(currentWord)}, ${Ariadne.renderGenus(dictionary[currentWord].genus)}` : <span className="error">Fout bij laden</span>}</h1>
                 <div className="solution">
                     {this.state.quizdata.solutionHTML}
                 </div>
                 {this.state.solutionPage ? <button className="next" onClick={this.getNewRandomWord}>>></button> : <button className="show" onClick={this.showSolution}>Oplossing</button>}
+            </div>
+        );
+        return (
+            <div className="excercise pocket-mode">
+                <Header />
+                {this.state.process === 'selecting' ? selectWordsHTML : rehearsalHTML}
             </div>
         )
     }

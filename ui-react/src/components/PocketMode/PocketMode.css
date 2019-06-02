@@ -9,14 +9,29 @@
     margin: 0;
 }
 
-.error {
-    background-color: rgba(255, 0, 0, 0.5);
-    color: darkred;
-    padding: 0.25rem;
-    border-radius: 0.5rem;
+.pocket-mode .word-select {
+    padding: calc(var(--header-height) + 3rem) 0 2rem 0;
 }
 
-button.next, button.show {
+.pocket-mode .word-select input, .pocket-mode .word-select button {
+    margin: 0 1em;
+}
+
+.pocket-mode .word-select input {
+    border-radius: 0.5em;
+    border: none;
+    margin: 0 1em;
+    padding: 0.75em;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
+}
+
+.pocket-mode .word-select button {
+    background-color: var(--btn-color-primary);
+    color: white;
+    cursor: pointer;
+}
+
+.pocket-mode button.next, button.show, button.select-btn {
     border: none;
     border-radius: 0.5em;
     padding: 1em;
@@ -24,7 +39,14 @@ button.next, button.show {
     box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
 }
 
+.error {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: darkred;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+}
+
 button.next {
-    background-color: rgb(21, 21, 167);
+    background-color: var(--btn-color-primary);
     color: white;
 }
