@@ -17,13 +17,13 @@ class PocketMode extends ExcercisePage {
         this.getNewRandomWord = this.getNewRandomWord.bind(this);
         this.showSolution = this.showSolution.bind(this);
         this.updateWordParams = this.updateWordParams.bind(this);
-        this.startRehearsing = this.startRehearsing.bind(this);
+        this.startRehearsingWithSelection = this.startRehearsingWithSelection.bind(this);
+        this.startRehearsingWithoutSelection = this.startRehearsingWithoutSelection.bind(this);
     }
 
     initializeFirstWord() {
         // Getting the data from the state and listing the words
         const { dictionary } = this.state;
-        console.log(dictionary);
         const possibleWords = Object.keys(dictionary);
         // Getting a random first word
         const index = Math.floor(Math.random() * possibleWords.length);
@@ -37,7 +37,7 @@ class PocketMode extends ExcercisePage {
                 remainingWords,
                 currentWord: firstWord
             }
-        }, () => console.log(this.state.currentWord));
+        });
     }
 
     showSolution() {
@@ -72,7 +72,6 @@ class PocketMode extends ExcercisePage {
             },
             solutionPage: true
         })
-        console.log(this.state.dictionary[currentWord]);
     }
 
     getNewRandomWord() {
@@ -108,27 +107,36 @@ class PocketMode extends ExcercisePage {
     async getSelectedWords() {
         const { startPage } = this.state.wordparams;
         const { endPage } = this.state.wordparams;
-        this.fetchData(startPage, endPage).then(() => console.log(this.state.dictionary));
+        return this.fetchData(startPage, endPage);
     }
 
-    startRehearsing() {
-        this.getSelectedWords().then(() => {
-            console.log(this.state.dictionary);
-            this.setState({
-                process: 'rehearsing'
-            })
-            this.initializeFirstWord();
-        });
+    startRehearsingWithSelection() {
+        this.getSelectedWords().then(() => this.initializeFirstWord());
+        this.setState({
+            process: 'rehearsing'
+        })
     }
+
+    startRehearsingWithoutSelection() {
+        this.fetchData().then(() => this.initializeFirstWord());
+        this.setState({
+            process: 'rehearsing'
+        })
+    }
+
 
     render() {
         const { dictionary, quizdata } = this.state;
         const { currentWord } = quizdata;
         const selectWordsHTML = (
             <div className="word-select">
+                <h1>Selecteer een begin- en eindpagina:</h1>
                 <input name="startPage" placeholder="Beginpagina" onChange={this.updateWordParams} autoComplete="off" />
                 <input name="endPage" placeholder="Eindpagina" onChange={this.updateWordParams} autoComplete="off" />
-                <button className="select-btn" onClick={this.startRehearsing}>Overhoren</button>
+                <button className="select-btn" onClick={this.startRehearsingWithSelection}>Overhoren</button>
+                <h1>Of</h1>
+                <h1>Overhoor de hele database:</h1>
+                <button className="select-btn" onClick={this.startRehearsingWithoutSelection}>Overhoren</button>
             </div>
         )
         const rehearsalHTML = (
