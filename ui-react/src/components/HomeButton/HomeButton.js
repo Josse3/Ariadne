@@ -7,8 +7,8 @@ function HomeButton(props) {
     return (
         <Link to="/">
             <div className="home-btn">
-                <img src={homeImg} />
-                <p><i class='far fa-caret-square-left'></i> Οἶκος</p>
+                <img src={homeImg} alt="Home icon" />
+                <p><i className='far fa-caret-square-left'></i> Οἶκος</p>
             </div>
         </Link>
     )

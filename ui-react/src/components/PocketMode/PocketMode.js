@@ -8,7 +8,8 @@ class PocketMode extends ExcercisePage {
     constructor(props) {
         super(props);
         this.state = {
-            ...this.state, ['quizdata']: {}
+            ...this.state,
+            quizdata: {}
         };
         this.initializeFirstWord = this.initializeFirstWord.bind(this);
         this.getNewRandomWord = this.getNewRandomWord.bind(this);
@@ -31,7 +32,7 @@ class PocketMode extends ExcercisePage {
                 remainingWords,
                 currentWord: firstWord
             }
-        }, () => console.log(this.state.quizdata));
+        });
     }
 
     showSolution() {
@@ -43,7 +44,7 @@ class PocketMode extends ExcercisePage {
         const relevantKeys = ['translation'];
         const wordPropertiesList = Object.keys(wordPropertiesObject);
         wordPropertiesList.forEach(key => {
-            if (relevantKeys.indexOf(key) != -1) {
+            if (relevantKeys.indexOf(key) !== -1) {
                 essentialWordProperties[key] = wordPropertiesObject[key];
             }
         })
@@ -61,7 +62,8 @@ class PocketMode extends ExcercisePage {
         // Updating state
         this.setState({
             quizdata: {
-                ...this.state.quizdata, ['solutionHTML']: solutionHTML
+                ...this.state.quizdata,
+                solutionHTML
             },
             solutionPage: true
         })
@@ -93,8 +95,6 @@ class PocketMode extends ExcercisePage {
     render() {
         const { dictionary, quizdata } = this.state;
         const { currentWord } = quizdata;
-        console.log(dictionary[currentWord]);
-
         return (
             <div className="excercise pocket-mode">
                 <Header />

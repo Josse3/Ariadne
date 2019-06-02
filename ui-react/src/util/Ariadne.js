@@ -178,6 +178,8 @@ const Ariadne = {
                     return 'ἡ';
                 case 'o':
                     return 'τό';
+                default:
+                    return '';
             }
         })
         return newArray.join('/');
