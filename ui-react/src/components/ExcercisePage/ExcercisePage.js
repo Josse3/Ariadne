@@ -10,6 +10,7 @@ class ExcercisePage extends React.Component {
     }
 
     async fetchData(pageStart, pageEnd) {
+        this.setState({ process: 'loading' });
         if (pageStart && pageEnd) {
             const data = await fetch(`/api/searchSpecific/${pageStart}/${pageEnd}`).then(response => {
                 if (response.ok) {

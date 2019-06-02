@@ -111,17 +111,21 @@ class PocketMode extends ExcercisePage {
     }
 
     startRehearsingWithSelection() {
-        this.getSelectedWords().then(() => this.initializeFirstWord());
-        this.setState({
-            process: 'rehearsing'
-        })
+        this.getSelectedWords().then(() => {
+            this.initializeFirstWord();
+            this.setState({
+                process: 'rehearsing'
+            });
+        });
     }
 
     startRehearsingWithoutSelection() {
-        this.fetchData().then(() => this.initializeFirstWord());
-        this.setState({
-            process: 'rehearsing'
-        })
+        this.fetchData().then(() => {
+            this.initializeFirstWord();
+            this.setState({
+                process: 'rehearsing'
+            });
+        });
     }
 
 
@@ -138,7 +142,10 @@ class PocketMode extends ExcercisePage {
                 <h1>Overhoor de hele database:</h1>
                 <button className="select-btn" onClick={this.startRehearsingWithoutSelection}>Overhoren</button>
             </div>
-        )
+        );
+
+        const loadingHTML = <div className="loading" />
+
         const rehearsalHTML = (
             <div className="rehearsal">
                 <h1>{currentWord ? `${Ariadne.toGreek(currentWord)}, ${Ariadne.renderGenus(dictionary[currentWord].genus)}` : <span className="error">Fout bij laden</span>}</h1>
@@ -148,10 +155,20 @@ class PocketMode extends ExcercisePage {
                 {this.state.solutionPage ? <button className="next" onClick={this.getNewRandomWord}>>></button> : <button className="show" onClick={this.showSolution}>Oplossing</button>}
             </div>
         );
+
+        let displayHTML;
+
+        if (this.state.process === 'selecting') {
+            displayHTML = selectWordsHTML;
+        } else if (this.state.process === 'loading') {
+            displayHTML = loadingHTML;
+        } else if (this.state.process === 'rehearsing') {
+            displayHTML = rehearsalHTML;
+        }
         return (
             <div className="excercise pocket-mode">
                 <Header />
-                {this.state.process === 'selecting' ? selectWordsHTML : rehearsalHTML}
+                {displayHTML}
             </div>
         )
     }
