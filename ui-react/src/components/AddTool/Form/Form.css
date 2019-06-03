@@ -20,6 +20,7 @@
 }
 
 .addtool-form button {
+    margin-top: 1rem;
     background-color: rgb(1, 1, 102);
     color: white;
     width: 10em;

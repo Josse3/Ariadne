@@ -6,6 +6,9 @@ class Form extends React.Component {
         super(props);
 
         this.state = {
+            fields: {
+                subst1: ['woord', 'genus', 'vertaling', 'pagina']
+            },
             values: {
                 subst1: {}
             },
@@ -15,7 +18,17 @@ class Form extends React.Component {
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.saveWord = this.saveWord.bind(this);
+        this.clearFields = this.clearFields.bind(this);
+    }
 
+    componentWillMount() {
+        const { fields } = this.state;
+        const fieldNames = Object.keys(fields);
+        fieldNames.forEach(wordtype => {
+            const firstInputName = fields[wordtype][0];
+            const refName = wordtype + firstInputName.charAt(0).toUpperCase() + firstInputName.slice(1);
+            this[refName] = React.createRef();
+        })
     }
 
     handleChange(event) {
@@ -31,13 +44,21 @@ class Form extends React.Component {
         });
     }
 
+    clearFields() {
+        document.querySelector('.subst1-form').reset();
+    }
+
     handleKeyDown(event) {
         if (event.key === 'Enter') {
             this.saveWord();
+            this.clearFields();
+            this.subst1Woord.current.focus();
+        } else if (event.key === 'a') {
+
         }
     }
 
-    saveWord(event) {
+    saveWord() {
         const toSave = {};
         Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key].replace('/', '%2F'));
         if (toSave.woord && toSave.genus && toSave.vertaling && toSave.pagina) {
@@ -57,19 +78,15 @@ class Form extends React.Component {
     }
 
     render() {
-        const fields = {
-            subst1: ['woord', 'genus', 'vertaling', 'pagina']
-        }
         return (
             <div className="addtool-form">
                 <h1>Substantieven eerste vervoeging</h1>
-                {fields.subst1.map((field, i) => {
-                    if (i !== (fields.subst1.length - 1)) {
-                        return <input type="text" key={'input_' + field} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" />
-                    } else {
-                        return <input type="text" key={'input_' + field} name={field} placeholder={field} onChange={this.handleChange} onKeyDown={this.handleKeyDown} autoComplete="off" />
-                    }
-                })}
+                <form className="subst1-form">
+                    {this.state.fields.subst1.map((field, i) => {
+                        const { length } = this.state.fields.subst1;
+                        return <input type="text" key={`input_${field}`} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" ref={i === 0 ? this.subst1Woord : undefined} onKeyDown={i === (length - 1) ? this.handleKeyDown : undefined} />
+                    })}
+                </form>
                 <button type="submit" onClick={this.saveWord}>Opslaan</button>
             </div>
         );
