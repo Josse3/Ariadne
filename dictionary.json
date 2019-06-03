@@ -28,5 +28,23 @@
     "genus": "m",
     "translation": "altaar",
     "page": 22
+  },
+  "bi/os": {
+    "type": "subst1",
+    "genus": "m",
+    "translation": "leven, levenswijze",
+    "page": 22
+  },
+  "ga/mos": {
+    "type": "subst1",
+    "genus": "m",
+    "translation": "huwelijk",
+    "page": 22
+  },
+  "dh=mos": {
+    "type": "subst1",
+    "genus": "m",
+    "translation": "volk",
+    "page": 23
   }
 }
