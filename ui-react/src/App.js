@@ -17,8 +17,8 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact component={Main} />
-            <Route path="/correctionmode" exact component={CorrectionMode} />
             <Route path="/vocabularium" exact component={Vocabularium} />
+            <Route path="/vocabularium/correctionmode" exact component={CorrectionMode} />
             <Route path="/vocabularium/pocketmode" exact component={PocketMode} />
             <Route path="/more" exact component={More} />
             <Route path="/addtool" exact component={AddTool} />
