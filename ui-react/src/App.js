@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import Main from './components/Main/Main';
-import CorrectionMode from './components/CorrectionMode/CorrectionMode';
 import Vocabularium from './components/Vocabularium/Vocabularium';
 import RehearsePage from './components/RehearsePage/RehearsePage';
 import VocabulariumList from './components/VocabulariumList/VocabulariumList';
