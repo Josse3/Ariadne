@@ -108,12 +108,16 @@ const Ariadne = {
                     return 'ζ';
                 case 'h':
                     return 'η';
-                // To add: accents for eta
+                case 'h=':
+                    return 'ῆ'
+                // To add: more accents for eta
                 case 'q':
                     return 'θ';
                 case 'i':
                     return 'ι';
-                // To add: accents or iota
+                case 'i/':
+                    return 'ί'
+                // To add: more accents or iota
                 case 'k':
                     return 'κ';
                 case 'l':
