@@ -1,14 +1,13 @@
 import React from 'react';
-import './PocketMode.css';
-import ExcercisePage from '../ExcercisePage/ExcercisePage';
+import './RehearsePage.css';
 import Header from '../Header/Header';
 import Ariadne from '../../util/Ariadne';
 
-class PocketMode extends ExcercisePage {
+class RehearsePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...this.state,
+            dictionary: {},
             quizdata: {},
             wordparams: {},
             process: 'selecting'
@@ -19,6 +18,25 @@ class PocketMode extends ExcercisePage {
         this.updateWordParams = this.updateWordParams.bind(this);
         this.startRehearsingWithSelection = this.startRehearsingWithSelection.bind(this);
         this.startRehearsingWithoutSelection = this.startRehearsingWithoutSelection.bind(this);
+    }
+
+    async fetchData(pageStart, pageEnd) {
+        // Updating page process
+        this.setState({ process: 'loading' });
+        // Checking if parameters are passed in
+        if (pageStart && pageEnd) {
+            // If so, fetch the selected part
+            const data = await fetch(`/api/searchSpecific/${pageStart}/${pageEnd}`).then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            });
+            this.setState({ dictionary: data });
+        } else {
+            // If not, fetch the entire JSON file
+            const data = await fetch('/api/search/').then(response => response.json());
+            this.setState({ dictionary: data });
+        }
     }
 
     initializeFirstWord() {
@@ -174,4 +192,4 @@ class PocketMode extends ExcercisePage {
     }
 }
 
-export default PocketMode;
+export default RehearsePage;

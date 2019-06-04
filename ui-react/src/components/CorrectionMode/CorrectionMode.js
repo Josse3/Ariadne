@@ -1,15 +1,14 @@
 import React from 'react';
 import './CorrectionMode.css';
-import ExcercisePage from '../ExcercisePage/ExcercisePage';
 import Header from '../Header/Header';
 import Form from './Form/Form';
 
-class CorrectionMode extends ExcercisePage {
+class CorrectionMode extends React.Component {
   render() {
     return (
       <div className="correction-mode">
         <Header />
-        <Form />
+        <Form wordtype="subst1" />
       </div>
     );
   }

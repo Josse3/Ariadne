@@ -6,7 +6,8 @@ import './App.css';
 import Main from './components/Main/Main';
 import CorrectionMode from './components/CorrectionMode/CorrectionMode';
 import Vocabularium from './components/Vocabularium/Vocabularium';
-import PocketMode from './components/PocketMode/PocketMode';
+import RehearsePage from './components/RehearsePage/RehearsePage';
+import VocabulariumList from './components/VocabulariumList/VocabulariumList';
 import More from './components/More/More';
 import AddTool from './components/AddTool/AddTool';
 
@@ -18,8 +19,8 @@ function App() {
           <Switch>
             <Route path="/" exact component={Main} />
             <Route path="/vocabularium" exact component={Vocabularium} />
-            <Route path="/vocabularium/correctionmode" exact component={CorrectionMode} />
-            <Route path="/vocabularium/pocketmode" exact component={PocketMode} />
+            <Route path="/vocabularium/rehearse" exact component={RehearsePage} />
+            <Route path="/vocabularium/list" exact component={VocabulariumList} />
             <Route path="/more" exact component={More} />
             <Route path="/addtool" exact component={AddTool} />
           </Switch>
