@@ -1,0 +1,20 @@
+.vocabularium-list {
+    background-color: lightblue;
+    min-height: var(--window-height);
+    text-align: center;
+}
+
+.vocabularium-list .title {
+    margin: 0;
+    padding-top: var(--header-height);
+}
+
+.vocabularium-list .word-list {
+    background-color: white;
+    padding: 0 10rem;
+}
+
+.vocabularium-list .word-item {
+    display: flex;
+    justify-content: space-around;
+}
