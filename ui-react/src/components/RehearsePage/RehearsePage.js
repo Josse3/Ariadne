@@ -167,9 +167,7 @@ class RehearsePage extends React.Component {
         const rehearsalHTML = (
             <div className="rehearsal">
                 <h1>{currentWord ? `${Ariadne.toGreek(currentWord)}, ${Ariadne.renderGenus(dictionary[currentWord].genus)}` : <span className="error">Fout bij laden</span>}</h1>
-                <div className="solution">
-                    {this.state.quizdata.solutionHTML}
-                </div>
+                {this.state.quizdata.solutionHTML ? <div className="solution">{this.state.quizdata.solutionHTML}</div> : ''}
                 {this.state.solutionPage ? <button className="next" onClick={this.getNewRandomWord}>>></button> : <button className="show" onClick={this.showSolution}>Oplossing</button>}
             </div>
         );
