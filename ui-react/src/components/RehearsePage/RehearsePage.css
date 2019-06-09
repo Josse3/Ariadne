@@ -1,23 +1,23 @@
-.pocket-mode {
+.rehearse-page {
     height: var(--window-height);
     background-color: lightblue;
     text-align: center;
 }
 
-.pocket-mode .rehearsal:nth-child(2) {
+.rehearse-page .rehearsal:nth-child(2) {
     padding: calc(var(--header-height) + 2rem) 0 2rem 0;
     z-index: 500;
 }
 
-.pocket-mode .word-select {
+.rehearse-page .word-select {
     padding: calc(var(--header-height) + 3rem) 0 2rem 0;
 }
 
-.pocket-mode .word-select input, .pocket-mode .word-select button {
+.rehearse-page .word-select input, .rehearse-page .word-select button {
     margin: 0 1em;
 }
 
-.pocket-mode .word-select input {
+.rehearse-page .word-select input {
     border-radius: 0.5em;
     border: none;
     margin: 0 1em;
@@ -25,13 +25,13 @@
     box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
 }
 
-.pocket-mode .word-select button {
+.rehearse-page .word-select button {
     background-color: var(--btn-color-primary);
     color: white;
     cursor: pointer;
 }
 
-.pocket-mode button.next, button.show, button.select-btn {
+.rehearse-page button.next, button.show, button.select-btn {
     border: none;
     border-radius: 0.5em;
     padding: 1em;
@@ -51,7 +51,7 @@ button.next {
     color: white;
 }
 
-.pocket-mode .loading {
+.rehearse-page .loading {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;

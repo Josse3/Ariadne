@@ -184,7 +184,7 @@ class RehearsePage extends React.Component {
             displayHTML = rehearsalHTML;
         }
         return (
-            <div className="excercise pocket-mode">
+            <div className="rehearse-page">
                 <Header />
                 {displayHTML}
             </div>
