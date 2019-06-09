@@ -72,6 +72,23 @@ class RehearsePage extends React.Component {
             }
         })
 
+        // Formatting the translation-solution
+
+        Object.keys(essentialWordProperties).forEach(key => {
+            if (key === 'translation') {
+                const differentLines = essentialWordProperties[key].split(' / ');
+                console.log(differentLines);
+                const formattedTranslation = (
+                    <ul>
+                        {differentLines.map((wordgroup, i) => {
+                            return <li key={`translation_${i}`}>{wordgroup}</li>
+                        })}
+                    </ul>
+                )
+                essentialWordProperties[key] = formattedTranslation;
+            }
+        })
+
         // Mapping it into an HTML element to display to the user
         const essentialWordPropertiesList = Object.keys(essentialWordProperties);
         const solutionHTML = essentialWordPropertiesList.map(item => {
