@@ -49,11 +49,19 @@ app.put('/api/add/:word', (req, res, next) => {
   const wordParam = req.params.word;
   let word;
   const slashRegExp = /%2F/g;
+  const equalRegExp = /%3D/g;
   if (slashRegExp.test(wordParam)) {
     word = wordParam.replace(slashRegExp, '/');
-  } else {
+  }
+
+  if (equalRegExp.test(wordParam)) {
+    word = wordParam.replace(equalRegExp, '=');
+  }
+
+  if (!slashRegExp.test(wordParam) && !equalRegExp.test(wordParam)) {
     word = wordParam;
   }
+
   const encodedupdates = req.query;
   const updates = {};
   Object.keys(encodedupdates).forEach(key => {

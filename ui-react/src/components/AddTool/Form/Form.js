@@ -60,7 +60,7 @@ class Form extends React.Component {
 
     saveWord() {
         const toSave = {};
-        Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key].replace('/', '%2F'));
+        Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key].replace('/', '%2F').replace('=', '%3D'));
         if (toSave.woord && toSave.genus && toSave.vertaling && toSave.pagina) {
             fetch(`/api/add/${toSave.woord}?type=subst1&genus=${toSave.genus}&translation=${toSave.vertaling}&page=${toSave.pagina}`, { method: 'PUT' })
                 .then(response => {
