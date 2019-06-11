@@ -19,6 +19,7 @@ class Form extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.saveWord = this.saveWord.bind(this);
         this.clearFields = this.clearFields.bind(this);
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
     componentWillMount() {
@@ -53,13 +54,17 @@ class Form extends React.Component {
             this.saveWord();
             this.clearFields();
             this.subst1Woord.current.focus();
-        } else if (event.key === 'a') {
-
         }
     }
 
+    handleButtonClick() {
+        this.saveWord();
+        this.clearFields();
+        this.subst1Woord.current.focus();
+    }
+
     saveWord() {
-        const toSave = {};
+        let toSave = {};
         Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key].replace('/', '%2F').replace('=', '%3D'));
         if (toSave.woord && toSave.genus && toSave.vertaling && toSave.pagina) {
             fetch(`/api/add/${toSave.woord}?type=subst1&genus=${toSave.genus}&translation=${toSave.vertaling}&page=${toSave.pagina}`, { method: 'PUT' })
@@ -70,6 +75,7 @@ class Form extends React.Component {
                     } else {
                         Error('Request failed.');
                     }
+                    toSave = {};
                 })
                 .then(jsonResponse => console.log(jsonResponse));
         } else {
@@ -87,7 +93,7 @@ class Form extends React.Component {
                         return <input type="text" key={`input_${field}`} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" ref={i === 0 ? this.subst1Woord : undefined} onKeyDown={i === (length - 1) ? this.handleKeyDown : undefined} />
                     })}
                 </form>
-                <button type="submit" onClick={this.saveWord}>Opslaan</button>
+                <button type="submit" onClick={this.handleButtonClick}>Opslaan</button>
             </div>
         );
     }
