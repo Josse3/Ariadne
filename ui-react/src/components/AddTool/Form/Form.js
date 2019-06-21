@@ -7,12 +7,13 @@ class Form extends React.Component {
 
         this.state = {
             fields: {
-                subst1: ['woord', 'genus', 'vertaling', 'pagina']
+                subst1: ['woord', 'genus', 'vertaling', 'pagina'],
+                subst2: []
             },
             values: {
                 subst1: {}
             },
-            history: {}
+            inputFieldToRender: 'subst1'
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -20,16 +21,7 @@ class Form extends React.Component {
         this.saveWord = this.saveWord.bind(this);
         this.clearFields = this.clearFields.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
-    }
-
-    componentWillMount() {
-        const { fields } = this.state;
-        const fieldNames = Object.keys(fields);
-        fieldNames.forEach(wordtype => {
-            const firstInputName = fields[wordtype][0];
-            const refName = wordtype + firstInputName.charAt(0).toUpperCase() + firstInputName.slice(1);
-            this[refName] = React.createRef();
-        })
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
     handleChange(event) {
@@ -60,40 +52,53 @@ class Form extends React.Component {
     handleButtonClick() {
         this.saveWord();
         this.clearFields();
-        this.subst1Woord.current.focus();
+        // this.subst1Woord.current.focus();
     }
 
     saveWord() {
-        let toSave = {};
-        Object.keys(this.state.values.subst1).forEach(key => toSave[key] = this.state.values.subst1[key].replace('/', '%2F').replace('=', '%3D'));
-        if (toSave.woord && toSave.genus && toSave.vertaling && toSave.pagina) {
-            fetch(`/api/add/${toSave.woord}?type=subst1&genus=${toSave.genus}&translation=${toSave.vertaling}&page=${toSave.pagina}`, { method: 'PUT' })
+        const allFieldsFilled = () => {
+            return Object.keys(this.state.values[this.state.inputFieldToRender]).length === this.state.fields[this.state.inputFieldToRender].length;
+        }
+        if (allFieldsFilled()) {
+            const toSave = {};
+            Object.keys(this.state.values[this.state.inputFieldToRender]).forEach(property => {
+                toSave[property] = this.state.values[this.state.inputFieldToRender][property].replace('/', '%2F').replace('=', '%3D');
+            })
+            fetch(`./db/add/${toSave.woord}?genus=${toSave.genus}&translation=${toSave.vertaling}&page=${toSave.pagina}&type=${this.state.inputFieldToRender}`, { method: 'PUT' })
                 .then(response => {
-                    console.log(response);
                     if (response.ok) {
                         return response.json();
                     } else {
-                        Error('Request failed.');
+                        throw Error(`${response.status} ${response.statusText}`);
                     }
-                    toSave = {};
                 })
-                .then(jsonResponse => console.log(jsonResponse));
+                .then(jsonResponse => console.log(jsonResponse))
+                .catch(error => this.setState({ error: String(error) }));
         } else {
             console.log('Invalid or incomplete input.');
         }
     }
 
+    handleSelectChange(event) {
+        this.setState({ inputFieldToRender: event.target.value }, () => console.log(this.state.inputFieldToRender));
+    }
+
     render() {
+        let inputFields;
+        inputFields = this.state.fields[this.state.inputFieldToRender].map((field, i) => {
+            const { length } = this.state.fields.subst1;
+            return <input type="text" key={`input_${field}`} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" ref={i === 0 ? this.subst1Woord : undefined} onKeyDown={i === (length - 1) ? this.handleKeyDown : undefined} />
+        });
         return (
             <div className="addtool-form">
-                <h1>Substantieven eerste vervoeging</h1>
                 <form className="subst1-form">
-                    {this.state.fields.subst1.map((field, i) => {
-                        const { length } = this.state.fields.subst1;
-                        return <input type="text" key={`input_${field}`} name={field} placeholder={field} onChange={this.handleChange} autoComplete="off" ref={i === 0 ? this.subst1Woord : undefined} onKeyDown={i === (length - 1) ? this.handleKeyDown : undefined} />
-                    })}
+                    <select value={this.state.inputFieldToRender} onChange={this.handleSelectChange}>{Object.keys(this.state.fields).map(field => <option key={`field-${field}`}>{field}</option>)}</select>
+                    {inputFields}
                 </form>
                 <button type="submit" onClick={this.handleButtonClick}>Opslaan</button>
+                {this.state.error ?
+                    <div className="error">Er is een fout opgetreden bij het opslaan van uw data in de database. Het volgende errorbericht werd meegegeven: <span className="error-msg">{this.state.error}</span></div>
+                    : ''}
             </div>
         );
     }
