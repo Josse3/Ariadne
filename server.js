@@ -1,87 +1,54 @@
-// Importing Node extensions
-const fs = require('fs');
+// Requiring + setting up server
 const express = require('express');
-
-// Creating a new express api
 const app = express();
+const { Pool } = require('pg');
+require('dotenv').config();
 
-// Importing data
-const rawData = fs.readFileSync('./dictionary.json', dataGotten);
-const dictionary = JSON.parse(rawData);
-
-function dataGotten() {
-  // empty because express wants me to have it but my terminal crashes whenever I console.log() something ¯\_(ツ)_/¯
-}
+const pool = new Pool({
+  database: 'ariadne',
+  user: process.env.USER,
+  password: process.env.PASS,
+  port: 5432
+})
 
 // Get requests
-// Get full JSON-file
-app.get('/api/search', (req, res, next) => {
-  res.send(dictionary);
+// Get full database 
+app.get('/db/full', (ereq, eres, next) => {
+  pool.query('SELECT * FROM dictionary', (err, pres) => {
+    if (err) { console.log(err) };
+    eres.send(pres);
+  })
 });
+
 // Get JSON data with defined start and end page
-app.get('/api/searchSpecific/:start/:end', (req, res, next) => {
+app.get('/api/searchSpecific/:start/:end', (ereq, eres, next) => {
   const { start, end } = req.params;
   const startNum = Number(start);
   const endNum = Number(end);
   if (!startNum || !endNum) {
     return res.status(400).send();
   }
-  const keysToSend = Object.keys(dictionary).filter(key => dictionary[key].page >= startNum && dictionary[key].page <= endNum);
-  const dataToSend = {};
-  keysToSend.forEach(key => dataToSend[key] = dictionary[key]);
-  res.send(dataToSend);
+  pool.query(`SELECT * FROM dictionary WHERE page <= ${startNum} AND page >= ${endNum}`, (err, pres) => {
+    if (err) { console.log(err) };
+    eres.send(pres);
+  })
 })
 
-// Validation
-app.put('/api/add/:word', (req, res, next) => {
-  const { word } = req.params;
-  if (!typeof word === 'string') {
-    return res.status(400).send();
-  }
-  if (!typeof req.query === 'object') {
-    return res.status(400).send();
-  }
-  next();
-});
-
 // Put requests
-app.put('/api/add/:word', (req, res, next) => {
-  const wordParam = req.params.word;
-  let word;
-  const slashRegExp = /%2F/g;
-  const equalRegExp = /%3D/g;
-  if (slashRegExp.test(wordParam)) {
-    word = wordParam.replace(slashRegExp, '/');
-  }
-
-  if (equalRegExp.test(wordParam)) {
-    word = wordParam.replace(equalRegExp, '=');
-  }
-
-  if (!slashRegExp.test(wordParam) && !equalRegExp.test(wordParam)) {
-    word = wordParam;
-  }
-
-  const encodedupdates = req.query;
-  const updates = {};
-  Object.keys(encodedupdates).forEach(key => {
-    if (!slashRegExp.test(key)) {
-      updates[key] = encodedupdates[key];
-    } else {
-      updates[key] = encodedupdates[key].replace(slashRegExp, '/');
-    }
+app.put('/db/add/:word', (ereq, eres, next) => {
+  const { word } = ereq.params;
+  const properties = {};
+  Object.keys(ereq.query).forEach(key => {
+    let value = Number(ereq.query[key]) === NaN ? Number(ereq.query[key]) : ereq.query[key];
+    value.replace('%2F', '/').replace('%3D', '=');
+    properties[key] = value;
   });
-  if (word) {
-    updates.page = Number(updates.page);
-    dictionary[word] = updates;
-    fs.writeFile('dictionary.json', JSON.stringify(dictionary, null, 2), (err) => {
-      if (err) {
-        console.log(err);
-      }
+  const { type } = properties;
+  if (type === 'subst1') {
+    pool.query(`INSERT INTO dictionary (word, genus, translation, page) VALUES ('${word}', '${properties.genus}', '${properties.translation}', '${properties.genus}')`, (err, pres) => {
+      if (err) { console.log(err) };
+      eres.send(pres);
     })
-    res.status(201).send(dictionary[word]);
-  } else {
-    res.status(400).send();
   }
 })
 

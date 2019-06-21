@@ -1,0 +1,24 @@
+{
+  "name": "ariadne",
+  "version": "1.0.0",
+  "description": "Ariadne (previously as \"GrieksVoc\") is a web application that makes it able to study vocabulary of the ancient Greek language online.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josse3/Ariadne-GrieksVoc-2.0-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josse3/Ariadne-GrieksVoc-2.0-/issues"
+  },
+  "homepage": "https://github.com/josse3/Ariadne-GrieksVoc-2.0-#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "node-fetch": "^2.6.0"
+  }
+}
