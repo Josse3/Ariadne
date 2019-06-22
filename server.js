@@ -22,13 +22,13 @@ app.get('/db/full', (ereq, eres, next) => {
 
 // Get JSON data with defined start and end page
 app.get('/db/specific/:start/:end', (ereq, eres, next) => {
-  const { start, end } = req.params;
+  const { start, end } = ereq.params;
   const startNum = Number(start);
   const endNum = Number(end);
   if (!startNum || !endNum) {
     return res.status(400).send();
   }
-  pool.query(`SELECT * FROM dictionary WHERE page <= ${startNum} AND page >= ${endNum}`, (err, pres) => {
+  pool.query(`SELECT * FROM dictionary WHERE page >= ${startNum} AND page <= ${endNum}`, (err, pres) => {
     if (err) { console.log(err) };
     eres.send(pres);
   })
