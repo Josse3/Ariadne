@@ -39,13 +39,15 @@ app.put('/db/add/:word', (ereq, eres, next) => {
   const { word } = ereq.params;
   const properties = {};
   Object.keys(ereq.query).forEach(key => {
-    let value = Number(ereq.query[key]) === NaN ? Number(ereq.query[key]) : ereq.query[key];
-    value.replace('%2F', '/').replace('%3D', '=');
+    // let value = Number(ereq.query[key]) === NaN ? Number(ereq.query[key]) : ereq.query[key];
+    const value = ereq.query[key].replace('%2F', '/').replace('%3D', '=');
     properties[key] = value;
   });
+  console.log(word, properties);
   const { type } = properties;
+  console.log(type);
   if (type === 'subst1') {
-    pool.query(`INSERT INTO dictionary (word, genus, translation, page) VALUES ('${word}', '${properties.genus}', '${properties.translation}', '${properties.genus}')`, (err, pres) => {
+    pool.query(`INSERT INTO dictionary (word, genus, translation, page) VALUES ('${word}', '${properties.genus}', '${properties.translation}', ${properties.page})`, (err, pres) => {
       if (err) { console.log(err) };
       eres.send(pres);
     })
