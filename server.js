@@ -21,7 +21,7 @@ app.get('/db/full', (ereq, eres, next) => {
 });
 
 // Get JSON data with defined start and end page
-app.get('/api/searchSpecific/:start/:end', (ereq, eres, next) => {
+app.get('/db/specific/:start/:end', (ereq, eres, next) => {
   const { start, end } = req.params;
   const startNum = Number(start);
   const endNum = Number(end);
