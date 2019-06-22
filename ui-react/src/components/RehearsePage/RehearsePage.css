@@ -1,0 +1,87 @@
+.rehearse-page {
+    height: var(--window-height);
+    background-color: lightblue;
+    text-align: center;
+}
+
+.rehearse-page .rehearsal:nth-child(2) {
+    padding: calc(var(--header-height) + 2rem) 0 2rem 0;
+    z-index: 500;
+}
+
+.rehearse-page .word-select {
+    padding: calc(var(--header-height) + 3rem) 0 2rem 0;
+}
+
+.rehearse-page .word-select input, .rehearse-page .word-select button {
+    margin: 0 1em;
+}
+
+.rehearse-page .word-select input {
+    border-radius: 0.5em;
+    border: none;
+    margin: 0 1em;
+    padding: 0.75em;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
+}
+
+.rehearse-page .word-select button {
+    background-color: var(--btn-color-primary);
+    color: white;
+    cursor: pointer;
+}
+
+.rehearse-page button.next, button.show, button.select-btn {
+    border: none;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
+}
+
+.rehearse-page .error {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: darkred;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    max-width: 40vw;
+    margin: 1em auto;
+}
+
+.rehearse-page .error .error-msg {
+    display: block;
+    color: black;
+    font-weight: bold;
+}
+
+button.next {
+    background-color: var(--btn-color-primary);
+    color: white;
+}
+
+.rehearse-page .loading {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 30%;
+    left: 47.5%;
+  }
+
+  .rehearse-page .solution {
+      background-color: rgb(241, 239, 239);
+      border: 1px solid #333;
+      padding: 2rem;
+      max-width: 40vh;
+      margin: 0 auto 2rem auto;
+      border-radius: 2rem;
+      box-shadow: 0 0 4rem rgba(0, 0, 0, 0.603);
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
