@@ -50,3 +50,18 @@
     font-weight: bold;
     color: black;
 }
+
+.addtool-form .history {
+    background-color: white;
+    width: 60vw;
+    margin: 1em auto;
+    padding: 1em;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+.addtool-form .history .history-item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5em;
+}
