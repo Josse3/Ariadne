@@ -6,15 +6,35 @@
 
 .vocabularium-list .title {
     margin: 0;
-    padding-top: var(--header-height);
+    padding-top: 6rem;
 }
 
 .vocabularium-list .word-list {
     background-color: white;
-    padding: 0 10rem;
+    width: 70vw;
+    margin: 2rem auto;
 }
 
-.vocabularium-list .word-item {
-    display: flex;
-    justify-content: space-around;
+.vocabularium-list .subst1-header {
+    background-color: rgb(212, 211, 211);
+}
+
+.vocabularium-list .subst1-header p {
+    margin: 0;
+    padding: 1rem 0;
+    border: 1px solid black;
+}
+
+.vocabularium-list .subst1 .word-item, .vocabularium-list .subst1-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.vocabularium-list .word-item p {
+    margin: 0;
+    padding: 1rem 0;
+}
+
+.vocabularium-list .subst1 .word-item p + p {
+    border-left: 1px solid grey;
 }

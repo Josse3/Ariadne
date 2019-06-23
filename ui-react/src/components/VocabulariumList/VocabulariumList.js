@@ -16,17 +16,15 @@ class VocabulariumList extends React.Component {
         this.setState({
             process: 'loading'
         })
-        const data = await fetch('/api/search').then(response => response.json());
+        const data = await fetch('/db/full').then(response => response.json());
         this.setState({
-            dictionary: data,
+            dictionary: data.rows,
             process: 'loaded'
         });
     }
 
     renderWords() {
         const { dictionary } = this.state;
-        // let html;
-
         const wordsListedByType = {};
         Object.keys(dictionary).forEach(word => {
             const { type } = dictionary[word]
@@ -47,8 +45,14 @@ class VocabulariumList extends React.Component {
         const html = Object.keys(wordsListedByType).map(type => {
             return (
                 <section key={`wordlist_${type}`} className="word-type">
-                    <h1>{type}</h1>
-                    <div className="word-type-content">
+                    <div className="word-type-content subst1">
+                        <div className="subst1-header">
+                            <p>#</p>
+                            <p>woord</p>
+                            <p>genus</p>
+                            <p>vertaling</p>
+                            <p>pagina</p>
+                        </div>
                         {Object.keys(wordsListedByType[type]).map(word => {
                             return (
                                 <div key={`word-item-${word}`} className="word-item">
