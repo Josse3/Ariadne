@@ -84,12 +84,16 @@ function RehearsePage() {
     }
 
     const provideNextWord = () => {
-        const wordIndex = (Math.floor(Math.random() * remainingWords.length));
-        console.log(remainingWords);
-        setWord(remainingWords[wordIndex]);
-        remainingWords.splice(wordIndex, 1);
-        setRemainingWords(remainingWords);
-        setSolutionPage(false);
+        if (remainingWords.length) {
+            const wordIndex = (Math.floor(Math.random() * remainingWords.length));
+            console.log(remainingWords);
+            setWord(remainingWords[wordIndex]);
+            remainingWords.splice(wordIndex, 1);
+            setRemainingWords(remainingWords);
+            setSolutionPage(false);
+        } else {
+            setProcess('ended');
+        }
     }
 
     const selectingHTML = (
@@ -120,6 +124,8 @@ function RehearsePage() {
         </div>
     );
 
+    const endedHTML = <div className="end-message">Καλῶς πεποιηκας!</div>
+
     let displayHTML;
 
     switch (process) {
@@ -132,6 +138,11 @@ function RehearsePage() {
         case 'rehearsing':
             displayHTML = rehearsalHTML;
             break;
+        case 'ended':
+            displayHTML = endedHTML;
+            break;
+        default:
+            throw Error('Invalid process');
     }
 
     return (
