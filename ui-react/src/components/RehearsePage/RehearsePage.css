@@ -54,11 +54,6 @@
     font-weight: bold;
 }
 
-button.next {
-    background-color: var(--btn-color-primary);
-    color: white;
-}
-
 .rehearse-page .loading {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
@@ -69,19 +64,58 @@ button.next {
     position: absolute;
     top: 30%;
     left: 47.5%;
-  }
+}
 
-  .rehearse-page .solution {
-      background-color: rgb(241, 239, 239);
-      border: 1px solid #333;
-      padding: 2rem;
-      max-width: 40vh;
-      margin: 0 auto 2rem auto;
-      border-radius: 2rem;
-      box-shadow: 0 0 4rem rgba(0, 0, 0, 0.603);
-  }
+.rehearse-page .rehearsal h1 {
+    font-size: 3.5rem;
+    margin-top: 0;
+}
+
+.rehearse-page .solution {
+    background-color: rgb(233, 233, 113);
+    border: 1px solid rgb(126, 126, 15);
+    padding: 1em;
+    max-width: 50%;
+    margin: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+.rehearse-page .solution h1.property-title {
+    text-transform: capitalize;
+    font-size: 2rem;
+}
+
+.rehearse-page .solution ul.property-details {
+    font-size: 1.5rem;
+}
+
+.rehearse-page button {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+.rehearse-page .show-btn {
+    padding: 0.5em 1em;
+    background-color: rgb(221, 221, 221);
+    border: none;
+    cursor: pointer;
+    font-size: 1.25em;
+    border-radius: 0.5rem;
+}
+
+.rehearse-page .next-btn {
+    margin-top: 1rem;
+    padding: 0.5em 1em;
+    background-color: var(--btn-color-primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.25em;
+    border-radius: 0.5rem;
+}
+
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
