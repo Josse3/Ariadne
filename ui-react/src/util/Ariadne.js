@@ -115,8 +115,14 @@ const Ariadne = {
                     return 'θ';
                 case 'i':
                     return 'ι';
+                case 'i)':
+                    return 'ἰ';
                 case 'i/':
-                    return 'ί'
+                    return 'ί';
+                case 'i(/':
+                    return 'ἵ';
+                case 'i)=':
+                    return 'ἶ';
                 // To add: more accents or iota
                 case 'k':
                     return 'κ';
@@ -130,8 +136,14 @@ const Ariadne = {
                     return 'ξ';
                 case 'o':
                     return 'ο';
+                case 'o(':
+                    return 'ὁ';
                 case 'o/':
                     return 'ό';
+                case 'o(/':
+                    return 'ὅ';
+                case 'o)/':
+                    return 'ὄ';
                 case 'p':
                     return 'π';
                 case 'r':
@@ -144,6 +156,12 @@ const Ariadne = {
                     return 'τ';
                 case 'u':
                     return 'υ';
+                case 'u=':
+                    return 'ῦ';
+                case 'u)':
+                    return 'ὐ';
+                case 'u/':
+                    return 'ύ';
                 case 'f':
                     return 'φ';
                 case 'x':
@@ -152,8 +170,10 @@ const Ariadne = {
                     return 'ψ';
                 case 'w':
                     return 'ω';
+                case 'w=':
+                    return 'ῶ';
                 default:
-                    return 'ADD';
+                    return index;
             }
         }
         const greekString = greekArray.join('');
@@ -164,7 +184,7 @@ const Ariadne = {
             case 'translation':
                 return 'vertaling'
             default:
-                return 'TOADD'
+                return string;
         }
     },
     renderGenus(genus) {
