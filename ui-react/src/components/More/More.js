@@ -1,24 +1,12 @@
 import React from 'react';
 import './More.css';
-import Header from '../Header/Header';
-import Selector from './Selector/Selector';
 
-class More extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+function More() {
+    return (
+        <div className="more">
 
-    render() {
-        return (
-            <div className="more">
-                <Header />
-                <div className="content">
-                    <Selector />
-                </div>
-            </div>
-        )
-    }
+        </div>
+    );
 }
 
 export default More;
