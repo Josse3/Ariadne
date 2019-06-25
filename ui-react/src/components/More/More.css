@@ -1,0 +1,22 @@
+.more {
+    height: 100vh;
+    background-color: lightblue;
+    text-align: center;
+}
+
+h1 {
+    padding-top: 6rem;
+    margin: 0;
+}
+
+select {
+    margin-top: 1rem;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+select + select {
+    margin-left: 1.5em;
+}
