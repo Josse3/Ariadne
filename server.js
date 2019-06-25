@@ -12,7 +12,7 @@ const pool = new Pool({
 })
 
 // Get requests
-// Get full database 
+// Get entire vocabularium
 app.get('/db/full', (ereq, eres, next) => {
   pool.query('SELECT * FROM dictionary', (err, pres) => {
     if (err) { console.log(err) };
@@ -20,7 +20,7 @@ app.get('/db/full', (ereq, eres, next) => {
   })
 });
 
-// Get JSON data with defined start and end page
+// Get specific vocabularium (with specific start and end page)
 app.get('/db/specific/:start/:end', (ereq, eres, next) => {
   const { start, end } = ereq.params;
   const startNum = Number(start);
@@ -34,12 +34,11 @@ app.get('/db/specific/:start/:end', (ereq, eres, next) => {
   })
 })
 
-// Put requests
+// Inserting a new word into the database
 app.put('/db/add/:word', (ereq, eres, next) => {
   const { word } = ereq.params;
   const properties = {};
   Object.keys(ereq.query).forEach(key => {
-    // let value = Number(ereq.query[key]) === NaN ? Number(ereq.query[key]) : ereq.query[key];
     const value = ereq.query[key].replace('%2F', '/').replace('%3D', '=');
     properties[key] = value;
   });
@@ -53,6 +52,14 @@ app.put('/db/add/:word', (ereq, eres, next) => {
     })
   }
 })
+
+// Getting works, their author, codes and properties from 'work'-table
+app.get('/db/works', (ereq, eres, next) => {
+  pool.query('SELECT * FROM works', (err, pres) => {
+    if (err) { console.log(err) };
+    eres.send(pres);
+  })
+});
 
 // Setting up a port and running app
 const port = process.env.PORT || 3001;
