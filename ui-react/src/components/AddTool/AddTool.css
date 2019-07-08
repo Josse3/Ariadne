@@ -1,0 +1,52 @@
+.add-tool {
+    background-color: lightblue;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.add-tool select, .add-tool input {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+}
+
+.add-tool select {
+    margin-top: 6rem;
+    padding: 0.6em 1em;
+}
+
+.add-tool form {
+    margin-top: 2rem;
+}
+
+.add-tool input {
+    padding: 0.8em 1em;
+}
+
+.add-tool input::placeholder {
+    text-transform: capitalize;
+}
+
+.add-tool input + input {
+    margin-left: 0.5em;
+}
+
+.addtool-form .error {
+    background-color: rgba(255, 0, 0, 0.5);
+    border: 1px solid darkred;
+    color: rgb(97, 10, 10);
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    min-height: 4rem;
+    max-width: 60vw;
+    margin: 1em auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.addtool-form .error .error-msg {
+    font-weight: bold;
+    color: black;
+}
