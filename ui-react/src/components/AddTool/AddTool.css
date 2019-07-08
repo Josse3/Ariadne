@@ -50,3 +50,28 @@
     font-weight: bold;
     color: black;
 }
+
+.add-tool .history {
+    background-color: white;
+    width: 80vw;
+    margin: auto;
+    padding: 1em;
+}
+
+.add-tool .history .word-history-line {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.add-tool .history .word-history-line + .word-history-line {
+    border-top: 1px dashed grey;
+}
+
+.add-tool .history .word-history-line p {
+    margin: 0;
+    padding: 1rem 0;
+}
+
+.add-tool .history .word-history-line p + p {
+    border-left: 1px solid grey;
+}
