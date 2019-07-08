@@ -108,6 +108,10 @@ const Ariadne = {
                     return 'ζ';
                 case 'h':
                     return 'η';
+                case 'h(':
+                    return 'ἡ';
+                case 'h/':
+                    return 'ή';
                 case 'h(/':
                     return 'ἥ';
                 case 'h)/':
