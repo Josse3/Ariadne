@@ -4,6 +4,11 @@
     text-align: center;
 }
 
+.add-tool form.auth-form, .add-tool div.input-form {
+    margin: 0;
+    padding-top: 6rem;
+}
+
 .add-tool select, .add-tool input {
     border-radius: 8px;
     border: none;
@@ -11,7 +16,6 @@
 }
 
 .add-tool select {
-    margin-top: 6rem;
     padding: 0.6em 1em;
 }
 
@@ -31,7 +35,7 @@
     margin-left: 0.5em;
 }
 
-.addtool-form .error {
+.add-tool .input-form .error {
     background-color: rgba(255, 0, 0, 0.5);
     border: 1px solid darkred;
     color: rgb(97, 10, 10);
@@ -46,7 +50,7 @@
     flex-direction: column;
 }
 
-.addtool-form .error .error-msg {
+.add-tool .input-form .error .error-msg {
     font-weight: bold;
     color: black;
 }

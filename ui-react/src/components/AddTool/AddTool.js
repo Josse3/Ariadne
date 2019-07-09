@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import Ariadne from '../../util/Ariadne';
 
 function AddTool() {
+    const [enteredPass, setEnteredPass] = useState('');
     const inputFieldNames = {
         subst1: ['woord', 'genus', 'vertaling', 'pagina'],
         subst2: ['woord', 'genitief', 'genus', 'vertaling', 'pagina']
@@ -14,6 +15,9 @@ function AddTool() {
     const [history, setHistory] = useState([]);
     const [pageInput, setPageInput] = useState();
     const [error, setError] = useState('');
+    const [phase, setPhase] = useState('authenticating');
+
+    const authenticate = () => setPhase('entering');
 
     const updateInput = event => {
         const { name, value } = event.target;
@@ -34,12 +38,9 @@ function AddTool() {
             if (i === 0) return queryString += `${query[property].replace('/', '%2F').replace('=', '%3D')}?`
             queryString += `${i === 1 ? '' : '&'}${property}=${query[property]}`;
         });
-        try {
-            fetch(`/db/add/${queryString}&type=${currentType}`, { method: 'PUT' })
-                .then(response => { if (!response.ok) throw Error('Failed pushing data') })
-        } catch (error) {
-            setError(String(error));
-        }
+        fetch(`/db/add/${queryString}&type=${currentType}&key=${enteredPass}`, { method: 'PUT' })
+            .then(response => { if (!response.ok) throw Error(`${response.status}: ${response.statusText}`) })
+            .catch(error => setError(String(error)));
         console.log(toPush);
         setHistory([...history, toPush])
     }
@@ -68,9 +69,24 @@ function AddTool() {
         />
     });
 
-    return (
-        <div className="add-tool">
-            <Header />
+    let displayHTML;
+
+    const authenticationHTML = (
+        <form className="auth-form">
+            <input
+                type="password"
+                className="auth-input"
+                placeholder="Voer authenticatie-code in"
+                onChange={e => setEnteredPass(e.target.value)}
+            />
+            <button className="auth-btn" onClick={authenticate}>
+                Meld aan
+            </button>
+        </form>
+    )
+
+    const enteringHTML = (
+        <div className="input-form">
             <select onChange={e => setCurrentType(e.target.value)}>
                 {types.map(type => <option key={`option-${type}`} value={type}>{type}</option>)}
             </select>
@@ -107,6 +123,21 @@ function AddTool() {
                     })}
                 </div>
                 : ''}
+        </div>
+    )
+
+    if (phase === 'authenticating') {
+        displayHTML = authenticationHTML;
+    } else if (phase === 'entering') {
+        displayHTML = enteringHTML;
+    } else {
+        throw Error('Invalid phase');
+    }
+
+    return (
+        <div className="add-tool">
+            <Header />
+            {displayHTML}
         </div>
     )
 }

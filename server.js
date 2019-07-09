@@ -11,6 +11,15 @@ const pool = new Pool({
   port: 5432
 })
 
+// Validation
+app.use((req, res, next) => {
+  if (req.query.key !== process.env.EXP_AUTH) {
+    return res.status(401).send('Invalid authentication key');
+  } else {
+    next();
+  }
+})
+
 // Get requests
 // Get entire vocabularium
 app.get('/db/full', (ereq, eres, next) => {
@@ -42,9 +51,7 @@ app.put('/db/add/:word', (ereq, eres, next) => {
     const value = ereq.query[key].replace('%2F', '/').replace('%3D', '=');
     properties[key] = value;
   });
-  console.log(word, properties);
   const { type } = properties;
-  console.log(type);
   if (type === 'subst1') {
     pool.query(`INSERT INTO dictionary (word, genus, translation, page) VALUES ('${word}', '${properties.genus}', '${properties.translation}', ${properties.page})`, (err, pres) => {
       if (err) { console.log(err) };
