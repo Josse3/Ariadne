@@ -11,15 +11,6 @@ const pool = new Pool({
   port: 5432
 })
 
-// Validation
-app.use((req, res, next) => {
-  if (req.query.key !== process.env.EXP_AUTH) {
-    return res.status(401).send('Invalid authentication key');
-  } else {
-    next();
-  }
-})
-
 // Get requests
 // Get entire vocabularium
 app.get('/db/full', (ereq, eres, next) => {
@@ -45,6 +36,9 @@ app.get('/db/specific/:start/:end', (ereq, eres, next) => {
 
 // Inserting a new word into the database
 app.put('/db/add/:word', (ereq, eres, next) => {
+  if (req.query.key !== process.env.EXP_AUTH) {
+    return res.status(401).send('Invalid authentication key');
+  }
   const { word } = ereq.params;
   const properties = {};
   Object.keys(ereq.query).forEach(key => {
