@@ -13,6 +13,7 @@ function Navboxline() {
                 backgroundColor="green"
                 highlightColor="#004d00"
                 backgroundImage={pocketImg}
+                style={{ backgroundSize: 'cover' }}
                 href="vocabularium/rehearse"
             />
 
@@ -22,6 +23,7 @@ function Navboxline() {
                 backgroundColor="darkred"
                 highlightColor="#660000"
                 backgroundImage={vocListImg}
+                style={{ backgroundSize: 'cover' }}
                 href="vocabularium/list"
             />
         </div>

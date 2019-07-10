@@ -29,10 +29,15 @@ class Navbox extends React.Component {
     return (
       <div className="navbox-container">
         <Link to={this.state.href}>
-          <div className="navbox-content" style={{
-            backgroundColor: this.state.backgroundColor,
-            backgroundImage: `url(${this.props.backgroundImage})`
-          }} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+          <div
+            className="navbox-content"
+            style={{
+              backgroundColor: this.state.backgroundColor,
+              backgroundImage: `url(${this.props.backgroundImage})`,
+              ...this.props.style
+            }}
+            onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}
+          >
             <h1>{this.props.header}</h1>
             <p>{this.props.description}</p>
           </div>

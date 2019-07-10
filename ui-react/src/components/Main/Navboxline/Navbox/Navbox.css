@@ -16,8 +16,8 @@
   padding: 1em;
   height: inherit;
   width: inherit;
-  background-size: cover;
   background-blend-mode: multiply;
+  background-position: center;
   transition: transform 0.5s;
   transform: scale(1);
 }
