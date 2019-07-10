@@ -78,7 +78,7 @@ function More() {
             const parsedXML = xml
                 .split(/<\/?div1.*>/g)[1]
                 .replace(/<milestone.*\/>/g, '')
-                .replace(/<\/?l.{0,8}>/g, '')
+                .replace(/<\/?l.{0,8}>/g, ' ')
                 .replace(/\n/g, '')
                 .split(/[.;:]/g);
             return parsedXML;
