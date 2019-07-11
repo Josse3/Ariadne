@@ -1,15 +1,15 @@
 import React from 'react';
 
 import './Vocabularium.css';
+import Header from '../Header/Header';
 import Banner from '../Banner/Banner';
-import HomeButton from '../HomeButton/HomeButton';
 import Navboxline from './Navboxline/Navboxline';
 
 function Vocabularium() {
     return (
         <div className="vocabularium">
-            <HomeButton />
-            <Banner text="Studeer vocablarium" />
+            <Header />
+            <Banner text="Studeer vocabularium" />
             <Navboxline />
         </div>
     )

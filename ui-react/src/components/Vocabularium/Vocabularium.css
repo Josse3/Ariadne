@@ -1,22 +1,17 @@
 .vocabularium {
   min-height: var(--window-height);
-  background-image: url('../../Banner-image-cut.png');
-  background-size: cover;
-  background-color: grey;
-  background-blend-mode: multiply;
-  background-position: center;
-  padding-top: var(--banner-size);
+  background-color: lightblue;
+}
+
+.vocabularium .banner-header {
+  color: rgb(68, 61, 61);
+  padding-top: 6rem;
 }
 
 @media only screen and (min-width: 900px) and (orientation: landscape) {
   .vocabularium {
     height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-  }
 
-  h1 {
-    grid-row: 1;
   }
 }
 
