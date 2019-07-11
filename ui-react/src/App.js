@@ -9,6 +9,7 @@ import RehearsePage from './components/RehearsePage/RehearsePage';
 import VocabulariumList from './components/VocabulariumList/VocabulariumList';
 import More from './components/More/More';
 import AddTool from './components/AddTool/AddTool';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/vocabularium/list" exact component={VocabulariumList} />
             <Route path="/more" exact component={More} />
             <Route path="/addtool" exact component={AddTool} />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       }
