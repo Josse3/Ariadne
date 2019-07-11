@@ -1,0 +1,25 @@
+.not-found {
+    min-height: 100vh;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.not-found .msg-content .error-code {
+    color: darkred;
+    font-size: 4em;
+    display: block;
+}
+
+.not-found .msg-content {
+    text-align: center;
+}
+
+.not-found .msg-content a {
+    text-decoration: none;
+}
+
+.not-found .msg-content button {
+    cursor: pointer;
+}
