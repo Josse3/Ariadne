@@ -13,7 +13,6 @@ function AddTool() {
     const [currentType, setCurrentType] = useState(Object.keys(inputFieldNames)[0]);
     const [toPush, setToPush] = useState({});
     const [history, setHistory] = useState([]);
-    const [pageInput, setPageInput] = useState();
     const [error, setError] = useState('');
     const [phase, setPhase] = useState('authenticating');
 
