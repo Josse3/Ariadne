@@ -4,25 +4,7 @@ body {
 }
 
 .main {
-  min-height: var(--window-height);
-  background-image: url('../../Banner-image-cut.png');
-  background-size: cover;
-  background-color: grey;
-  background-blend-mode: multiply;
-  background-position: center;
-  padding-top: var(--banner-size);
-}
-
-@media only screen and (min-width: 900px) and (orientation: landscape) {
-  .main {
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .main {
-    min-height: var(--window-height);
-  }
+  min-height: 100vh;
+  background-color: #25324A;
+  /* display: grid; */
 }

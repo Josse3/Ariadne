@@ -1,0 +1,19 @@
+.navbox {
+    height: 16rem;
+    width: 30rem;
+    text-align: center;
+    padding: 2rem;
+
+    &.navbox-1 {
+        justify-self: flex-start;
+    }
+
+    &.navbox-2 {
+        justify-self: flex-end;
+    }
+
+    &.navbox-3 {
+        grid-area: 2 / 1 / span 1 / span 2;
+        justify-self: center;
+    }
+}

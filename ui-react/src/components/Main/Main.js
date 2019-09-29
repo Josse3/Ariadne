@@ -3,14 +3,14 @@ import './Main.css';
 
 import HomeButton from '../HomeButton/HomeButton';
 import Banner from '../Banner/Banner';
-import Navboxline from './Navboxline/Navboxline';
+import NavBoxes from './Navboxes/NavBoxes';
 
 function Main() {
   return (
     <div className="main">
       <HomeButton />
       <Banner />
-      <Navboxline />
+      <NavBoxes />
     </div>
   )
 }

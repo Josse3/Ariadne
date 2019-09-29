@@ -1,13 +1,13 @@
 import React from 'react';
 import './Navboxline.css';
-import Navbox from '../../Main/Navboxline/Navbox/Navbox';
+/* import Navbox from '../../Main/Navboxline/Navbox/Navbox'; */
 import pocketImg from '../pocket.png';
 import vocListImg from './Ankura.png';
 
 function Navboxline() {
     return (
         <div className="vocabulary-navbox-line">
-            <Navbox
+            {/* <Navbox
                 header="Overhoor vocabularium"
                 description="Een module om vocabularium te overhoren: snel, efficiënt en geoptimaliseerd voor GSM's"
                 backgroundColor="green"
@@ -25,7 +25,7 @@ function Navboxline() {
                 backgroundImage={vocListImg}
                 style={{ backgroundSize: 'cover' }}
                 href="vocabularium/list"
-            />
+            /> */}
         </div>
     );
 }

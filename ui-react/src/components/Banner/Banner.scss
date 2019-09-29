@@ -1,0 +1,19 @@
+$banner-height: 50vh;
+
+.banner {
+  height: $banner-height;
+  background-image: url(../../Banner-image-cut.png);
+  background-color: grey;
+  background-blend-mode: multiply;
+  background-position: contain;
+  clip-path: polygon(0 0, 100% 0, 100% calc(#{$banner-height} / 2), 50% $banner-height, 0 calc(#{$banner-height} / 2));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    transform: translateY(-50%);
+    font-size: 6rem;
+    color: white;
+  }
+}

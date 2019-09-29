@@ -1,12 +1,13 @@
 import React from 'react';
 import './Banner.css';
 
-class Banner extends React.Component {
-  render() {
-    return (
-      <h1 className="banner-header">{this.props.text ? this.props.text : 'Ἀριάδνη'}</h1>
-    );
-  }
+
+const Banner = () => {
+  return (
+    <div className="banner">
+      <h1>Ἀριάδνη</h1>
+    </div>
+  )
 }
 
 export default Banner;
