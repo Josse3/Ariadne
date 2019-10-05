@@ -3,17 +3,41 @@
     width: 30rem;
     text-align: center;
     padding: 2rem;
+    position: relative;
+
+    button {
+        font-size: 1.5rem;
+        padding: .75rem;
+        margin-top: 2.5rem;
+        cursor: pointer;
+    }
 
     &.navbox-1 {
         justify-self: flex-start;
+        background: #6C3135;
+
+        button {
+            background: #905257;
+        }
     }
 
     &.navbox-2 {
         justify-self: flex-end;
+        background: #345C57;
+
+        button {
+            background: #4A726D;
+        }
     }
 
     &.navbox-3 {
         grid-area: 2 / 1 / span 1 / span 2;
         justify-self: center;
+        background: #947D54;
+
+        button {
+            background: #BBA57B;
+        }
     }
+
 }

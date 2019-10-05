@@ -7,18 +7,15 @@ const NavBoxes = () => {
     const navBoxContents = [
         {
             title: 'Woordenlijst',
-            desc: 'Bekijk de woordenlijst alvorens te overhoren',
-            color: '#6C3135'
+            desc: 'Bekijk de woordenlijst alvorens te overhoren'
         },
         {
             title: 'Overhoor',
-            desc: 'Overhoor je vocabularium met de app',
-            color: '#1F4541'
+            desc: 'Overhoor je vocabularium met de app'
         },
         {
             title: 'Leeshoek',
-            desc: 'Neem een antieke tekst door na het overhoren van je vocabularium',
-            color: '#6F5A32'
+            desc: 'Neem een antieke tekst door na het overhoren van je vocabularium'
         }
     ]
 
