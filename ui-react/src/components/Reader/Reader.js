@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './More.css';
+import './Reader.css';
 import Header from '../Header/Header';
 
 function More() {

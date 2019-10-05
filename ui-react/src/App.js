@@ -4,10 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import Main from './components/Main/Main';
-import Vocabularium from './components/Vocabularium/Vocabularium';
 import RehearsePage from './components/RehearsePage/RehearsePage';
 import VocabulariumList from './components/VocabulariumList/VocabulariumList';
-import More from './components/More/More';
+import Reader from './components/Reader/Reader';
 import AddTool from './components/AddTool/AddTool';
 import NotFound from './components/NotFound/NotFound';
 
@@ -18,10 +17,9 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact component={Main} />
-            <Route path="/vocabularium" exact component={Vocabularium} />
-            <Route path="/vocabularium/rehearse" exact component={RehearsePage} />
-            <Route path="/vocabularium/list" exact component={VocabulariumList} />
-            <Route path="/more" exact component={More} />
+            <Route path="/rehearse" exact component={RehearsePage} />
+            <Route path="/vocabulariumlist" exact component={VocabulariumList} />
+            <Route path="/reader" exact component={Reader} />
             <Route path="/addtool" exact component={AddTool} />
             <Route component={NotFound} />
           </Switch>
