@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './NavBox.css';
 
 const NavBox = props => {
@@ -7,7 +8,7 @@ const NavBox = props => {
             <div className="overlay" />
             <h1>{props.title}</h1>
             <p>{props.desc}</p>
-            <button>Ga <i className="fas fa-arrow-circle-right"></i></button>
+            <Link to={props.href}><button>Ga <i className="fas fa-arrow-circle-right"></i></button></Link>
         </div>
     )
 }

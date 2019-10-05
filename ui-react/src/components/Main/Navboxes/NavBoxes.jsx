@@ -7,15 +7,18 @@ const NavBoxes = () => {
     const navBoxContents = [
         {
             title: 'Woordenlijst',
-            desc: 'Bekijk de woordenlijst alvorens te overhoren'
+            desc: 'Bekijk de woordenlijst alvorens te overhoren',
+            href: 'vocabulariumlist'
         },
         {
             title: 'Overhoor',
-            desc: 'Overhoor je vocabularium met de app'
+            desc: 'Overhoor je vocabularium met de app',
+            href: 'rehearse'
         },
         {
             title: 'Leeshoek',
-            desc: 'Neem een antieke tekst door na het overhoren van je vocabularium'
+            desc: 'Neem een antieke tekst door na het overhoren van je vocabularium',
+            href: 'reader'
         }
     ]
 
@@ -28,6 +31,7 @@ const NavBoxes = () => {
                         title={box.title}
                         desc={box.desc}
                         color={box.color}
+                        href={box.href}
                     />
                 )
             })}
