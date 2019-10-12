@@ -20,7 +20,7 @@ const authorize = (req, res, next) => {
 // Get requests
 // Get entire vocabularium
 router.get('/full', (ereq, eres, next) => {
-    pool.query('SELECT * FROM dictionary', (err, pres) => {
+    pool.query('SELECT id, word, genus, translation, page FROM dictionary ORDER BY id ASC', (err, pres) => {
         if (err) { console.log(err) };
         eres.send(pres);
     })
