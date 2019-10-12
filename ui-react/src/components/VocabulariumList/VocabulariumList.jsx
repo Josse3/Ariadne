@@ -5,6 +5,8 @@ import Ariadne from '../../util/Ariadne';
 
 function VocabulariumList() {
     const [dictionary, setDictionary] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [matchingWords, setMatchingWords] = useState([]);
     const [wordListHTML, setWordListHTML] = useState('');
 
     useEffect(() => {
@@ -19,8 +21,20 @@ function VocabulariumList() {
         fetchData();
     }, []);
 
-    const provideListHTML = () => {
+    useEffect(() => {
         if (dictionary) {
+            setMatchingWords(dictionary);
+        }
+    }, [dictionary]);
+
+    useEffect(() => {
+        setMatchingWords(dictionary.filter(wordObj => {
+            return wordObj.word.startsWith(searchTerm);
+        }));
+    }, [searchTerm])
+
+    const provideListHTML = () => {
+        if (matchingWords) {
             setWordListHTML(
                 <div className="word-list">
                     <div className="subst1-header">
@@ -30,7 +44,7 @@ function VocabulariumList() {
                         <p>Vertaling</p>
                         <p>Pagina</p>
                     </div>
-                    {dictionary.map(wordObj => {
+                    {matchingWords.map(wordObj => {
                         return (
                             <div key={`word-item-${wordObj.word}`} className="word-item">
                                 {Object.keys(wordObj).map(wordProperty => {
@@ -51,12 +65,18 @@ function VocabulariumList() {
         }
     }
 
-    useEffect(provideListHTML, [dictionary]);
+    useEffect(provideListHTML, [matchingWords]);
 
     return (
         <div className="vocabularium-list">
             <Header />
             <h1 className="title">(Ἡδε ἡ χάρτη ἔτι κατασκευάζεται)</h1>
+            <div className="searchbar">
+                <input type="text" placeholder="Vul uw zoekterm in..." onChange={e => setSearchTerm(e.target.value)} />
+                <button>
+                    <i className="fas fa-search"></i>
+                </button>
+            </div>
             {wordListHTML}
         </div>
     )
