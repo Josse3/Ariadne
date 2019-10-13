@@ -19,6 +19,8 @@
   "homepage": "https://github.com/josse3/Ariadne-GrieksVoc-2.0-#readme",
   "dependencies": {
     "dotenv": "^8.0.0",
-    "node-fetch": "^2.6.0"
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "pg": "^7.12.1"
   }
 }
