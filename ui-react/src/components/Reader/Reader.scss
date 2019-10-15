@@ -17,10 +17,10 @@
 
     select {
         margin-top: 1rem;
-    }
-
-    & + select {
-        margin-left: 1.5em;
+    
+        & + select {
+            margin-left: 1.5em;
+        }
     }
 
     input, button {
@@ -49,7 +49,7 @@
         margin: auto;
     }
 
-    button.next-btn, .more button.prev-btn {
+    button.next-btn, button.prev-btn {
         background: none;
         box-shadow: none;
         font-size: 2em;
