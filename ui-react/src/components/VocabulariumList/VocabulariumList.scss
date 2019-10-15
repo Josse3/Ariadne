@@ -15,7 +15,7 @@
     }
 
     input {
-        padding: 0 2rem;
+        padding: .5rem 2rem;
         font-size: 1.5rem;
         border: none;
     }
@@ -48,10 +48,13 @@
         }
 
         .word-item {
+            &:nth-of-type(even) {
+                background: #d4d3d3;
+            }
+
             p {
                 margin: 0;
                 padding: 1rem 0.25rem;
-                border-bottom: 1px dashed grey;
 
                 & + p {
                     border-left: 1px solid grey;
@@ -61,7 +64,9 @@
     }
 
     .subst1-header {
-        background-color: rgb(212, 211, 211);
+        background-color: #92734a;
+        color: white;
+        font-weight: bold;
 
         p {
             margin: 0;
