@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Reader.css';
 import Header from '../Header/Header';
 
-function More() {
+function Reader() {
     const [authors, setAuthors] = useState([]);
     const [works, setWorks] = useState([]);
     const [selectedAuthor, setSelectedAuthor] = useState('');
@@ -21,6 +21,7 @@ function More() {
                     return response.json();
                 })
                 .then(jsonResponse => {
+                    console.log(jsonResponse.rows);
                     // Saving works and their properties to 'works' state
                     setWorks(jsonResponse.rows);
                     // Saving all the different authors to 'authors' array
@@ -48,9 +49,7 @@ function More() {
         if (selectedAuthor) {
             if (Object.keys(works).length) {
                 const authorsWorks = works.map(work => {
-                    if (work.author === selectedAuthor.author) {
-                        return work.work;
-                    }
+                    return work.author === selectedAuthor.author && work.work;
                 })
                 setAvailableWorks(authorsWorks);
             }
@@ -121,7 +120,7 @@ function More() {
             <h1 className="title">(Ἡδε ἡ χάρτη ἔτι κατασκευάζεται)</h1>
             <select onChange={handleAuthorSelect}>
                 <option value="">(Selecteer een auteur)</option>
-                {authors.map(author => <option value={author.author} key={`author-option-${author.author}`}>{author.author}</option>)}
+                {authors.map((author, i) => <option value={author.author} key={`author-option-${author.author}-${i}`}>{author.author}</option>)}
             </select>
             <select onChange={handleWorkSelect}>
                 <option value="">(Selecteer een werk)</option>
@@ -146,4 +145,4 @@ function More() {
     );
 }
 
-export default More;
+export default Reader;

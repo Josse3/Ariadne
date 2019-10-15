@@ -31,7 +31,7 @@ function VocabulariumList() {
         setMatchingWords(dictionary.filter(wordObj => {
             return wordObj.word.startsWith(searchTerm);
         }));
-    }, [searchTerm])
+    }, [searchTerm, dictionary])
 
     const provideListHTML = () => {
         if (matchingWords) {

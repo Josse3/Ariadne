@@ -32,6 +32,7 @@ const NavBoxes = () => {
                         desc={box.desc}
                         color={box.color}
                         href={box.href}
+                        key={`navbox-${i}`}
                     />
                 )
             })}
