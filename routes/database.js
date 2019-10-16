@@ -45,7 +45,7 @@ router.put('/add/:word', authorize, (ereq, eres, next) => {
     const { word } = ereq.params;
     const properties = {};
     Object.keys(ereq.query).forEach(key => {
-        const value = ereq.query[key].replace('%2F', '/').replace('%3D', '=');
+        const value = decodeURIComponent(ereq.query[key]);
         properties[key] = value;
     });
     const { type } = properties;
