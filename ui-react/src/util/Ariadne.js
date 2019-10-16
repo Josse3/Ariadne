@@ -199,8 +199,12 @@ const Ariadne = {
     },
     toDutch(string) {
         switch (string) {
+            case 'word':
+                return 'woord';
+            case 'page':
+                return 'pagina';
             case 'translation':
-                return 'vertaling'
+                return 'vertaling';
             default:
                 return string;
         }
