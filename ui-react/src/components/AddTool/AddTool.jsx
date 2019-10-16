@@ -71,8 +71,15 @@ function AddTool() {
                         {dictionary.map(wordObj => {
                             return (
                                 <div className="word-item-subst1" key={`word-item-${wordObj.word}`}>
-                                    {Object.entries(wordObj).map(entryObj => {
-                                        return <p key={entryObj[0]}>{entryObj[1]}</p>
+                                    {Object.entries(wordObj).map(([key, value]) => {
+                                        let displayedParameter = value;
+                                        if (key === 'word') {
+                                            displayedParameter = Ariadne.toGreek(value);
+                                        }
+                                        if (key === 'genus') {
+                                            displayedParameter = Ariadne.renderGenus(value);
+                                        }
+                                        return <p key={key}>{displayedParameter}</p>
                                     })}
                                 </div>
                             )
