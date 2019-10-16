@@ -1,10 +1,12 @@
 // Requiring + setting up server
 const express = require('express');
 const app = express();
-const routes = require('./routes/database');
+const dbRoutes = require('./routes/database');
+const authenticationRoutes = require('./routes/authentication');
 
 // API
-app.use('/db', routes);
+app.use('/db', dbRoutes);
+app.use('/authentication', authenticationRoutes);
 
 // Setting up a port and running app
 const port = process.env.PORT || 3001;
