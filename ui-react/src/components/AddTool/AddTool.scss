@@ -1,0 +1,25 @@
+.add-tool {
+    background-color: lightblue;
+    min-height: 100vh;
+    text-align: center;
+
+    form.auth-form {
+        margin: 0;
+        padding-top: 6rem;
+    }
+
+    input, 
+    button {
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+        padding: 0.8em 1em;
+    }
+
+    button {
+        display: block;
+        margin: 1rem auto 0 auto;
+        background-color: var(--btn-color-primary);
+        color: white;
+    }
+}
