@@ -16,7 +16,7 @@ function VocabulariumList() {
                     if (!response.ok) throw Error('Failed fetching data');
                     return response.json();
                 })
-                .then(jsonResponse => setDictionary(jsonResponse.rows));
+                .then(setDictionary);
         }
         fetchData();
     }, []);

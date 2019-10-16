@@ -28,7 +28,7 @@ function RehearsePage() {
                     if (response.ok) return response.json();
                     throw Error('Failed fetching data');
                 })
-                .then(jsonResponse => dictionary = jsonResponse.rows)
+                .then(jsonResponse => dictionary = jsonResponse)
                 .then(startRehearsal);
         } catch (error) {
             setFetchError(String(error));
@@ -43,7 +43,7 @@ function RehearsePage() {
                     if (response.ok) return response.json();
                     throw Error('Failed fetching data')
                 })
-                .then(jsonResponse => dictionary = jsonResponse.rows)
+                .then(jsonResponse => dictionary = jsonResponse)
                 .then(startRehearsal);
         } catch (error) {
             setFetchError(String(error));

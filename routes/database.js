@@ -22,7 +22,7 @@ const authorize = (req, res, next) => {
 router.get('/full', (ereq, eres, next) => {
     pool.query('SELECT id, word, genus, translation, page FROM dictionary ORDER BY id ASC', (err, pres) => {
         if (err) { console.log(err) };
-        eres.send(pres);
+        eres.send(pres.rows);
     })
 });
 
