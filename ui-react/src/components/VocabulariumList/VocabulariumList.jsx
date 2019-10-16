@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+// CSS
 import './VocabulariumList.css';
+import '../../styles/vocabulariumlist.css';
+// Components
 import Header from '../Header/Header';
+// Util
 import Ariadne from '../../util/Ariadne';
 
 function VocabulariumList() {
@@ -36,7 +40,7 @@ function VocabulariumList() {
     const provideListHTML = () => {
         if (matchingWords) {
             setWordListHTML(
-                <div className="word-list">
+                <div className="vocabularium-list-subst1">
                     <div className="subst1-header">
                         <p>#</p>
                         <p>Woord</p>
@@ -46,7 +50,7 @@ function VocabulariumList() {
                     </div>
                     {matchingWords.map(wordObj => {
                         return (
-                            <div key={`word-item-${wordObj.word}`} className="word-item">
+                            <div key={`word-item-${wordObj.word}`} className="word-item-subst1">
                                 {Object.keys(wordObj).map(wordProperty => {
                                     let displayedProperty;
                                     if (wordProperty === 'word') {

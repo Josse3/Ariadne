@@ -1,0 +1,37 @@
+.vocabularium-list-subst1 {
+        background-color: white;
+        width: 70vw;
+        margin: 2rem auto;
+
+        .subst1-header, .word-item-subst1 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .word-item-subst1 {
+            &:nth-of-type(even) {
+                background: #d4d3d3;
+            }
+
+            p {
+                margin: 0;
+                padding: 1rem 0.25rem;
+
+                & + p {
+                    border-left: 1px solid grey;
+                }
+            }
+        }
+
+    .subst1-header {
+        background-color: #92734a;
+        color: white;
+        font-weight: bold;
+
+            p {
+                margin: 0;
+                padding: 1rem 0;
+                border: 1px solid black;
+            }
+        }
+}
