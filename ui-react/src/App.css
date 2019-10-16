@@ -18,6 +18,21 @@ html {
   font-family: Sans-serif;
 }
 
+.error {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: black;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  max-width: 40vw;
+  margin: 1em auto;
+}
+
+.error .error-msg {
+  display: block;
+  color: black;
+  font-weight: bold;
+}
+
 button {
   border: none;
   border-radius: 0.25rem;

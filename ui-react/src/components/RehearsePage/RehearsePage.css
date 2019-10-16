@@ -43,21 +43,6 @@
     box-shadow: 0 0 3em rgba(0, 0, 0, 0.5);
 }
 
-.rehearse-page .error {
-    background-color: rgba(255, 0, 0, 0.5);
-    color: darkred;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    max-width: 40vw;
-    margin: 1em auto;
-}
-
-.rehearse-page .error .error-msg {
-    display: block;
-    color: black;
-    font-weight: bold;
-}
-
 .rehearse-page .loading {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
