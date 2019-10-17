@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 // CSS
 import './AddTool.css';
@@ -7,7 +7,6 @@ import '../../styles/vocabulariumlist.css';
 import Header from '../Header/Header';
 // Util
 import Ariadne from '../../util/Ariadne';
-import { encode } from 'punycode';
 
 function AddTool() {
     // Authentication page
@@ -20,6 +19,7 @@ function AddTool() {
         subst1: ['word', 'genus', 'translation', 'page'],
         subst2: ['word', 'genus', 'genitive', 'translation', 'page']
     }
+    const wordInput = useRef(null); // ref for input field 'word' inside form
     const [formInput, setFormInput] = useState({});
     // Phase
     const [phase, setPhase] = useState('editing');
@@ -70,6 +70,9 @@ function AddTool() {
                 if (!response.ok) throw Error('Failed adding word to the database');
                 return response.json();
             });
+
+        document.querySelector('.addtool-form').reset();
+        wordInput.current.focus();
     }
 
     return (
@@ -136,6 +139,7 @@ function AddTool() {
                         {inputFields[selectedInputField].map(inputField => {
                             return (
                                 <input
+                                    ref={inputField === 'word' ? wordInput : undefined}
                                     type={inputField === 'page' ? 'number' : 'text'}
                                     name={inputField}
                                     key={inputField}
