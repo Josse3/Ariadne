@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-scroll';
 // CSS
 import './AddTool.css';
 import '../../styles/vocabulariumlist.css';
@@ -6,6 +7,7 @@ import '../../styles/vocabulariumlist.css';
 import Header from '../Header/Header';
 // Util
 import Ariadne from '../../util/Ariadne';
+import { encode } from 'punycode';
 
 function AddTool() {
     // Authentication page
@@ -13,6 +15,12 @@ function AddTool() {
     const [authenticationFailed, setAuthenticationFailed] = useState(false);
     // Edit interface
     const [dictionary, setDictionary] = useState([]);
+    const [selectedInputField, setSelectedInputField] = useState('subst1');
+    const inputFields = {
+        subst1: ['word', 'genus', 'translation', 'page'],
+        subst2: ['word', 'genus', 'genitive', 'translation', 'page']
+    }
+    const [formInput, setFormInput] = useState({});
     // Phase
     const [phase, setPhase] = useState('editing');
 
@@ -38,6 +46,32 @@ function AddTool() {
         }
     }, [phase])
 
+    // Adding a word to the database
+    const addWord = event => {
+        event && event.preventDefault();
+        const queryObject = JSON.parse(JSON.stringify(formInput));
+        delete queryObject.word;
+        const queryString =
+            encodeURIComponent(formInput.word) +
+            '?' +
+            'id=' +
+            (dictionary.length + 1) +
+            '&' +
+            Object.entries(queryObject).map(([key, value]) => {
+                return key + '=' + encodeURIComponent(value);
+            })
+                .join('&')
+                .replace(/,/g, '=') +
+            '&type=subst1';
+
+
+        fetch(`/db/add/${queryString}`, { method: 'PUT' })
+            .then(response => {
+                if (!response.ok) throw Error('Failed adding word to the database');
+                return response.json();
+            });
+    }
+
     return (
         <div className="add-tool">
             <Header />
@@ -59,12 +93,19 @@ function AddTool() {
 
             {phase === 'editing' && (
                 <div className="edit-interface">
+                    <Link
+                        to="form-scroll-anchor"
+                        duraction={250}
+                        smooth={true}
+                    >
+                        <button>Voeg woorden toe</button>
+                    </Link>
                     <h1>Substantieven eerste vervoeging</h1>
                     <div className="vocabularium-list-grid vocabularium-list-subst1">
                         <div className="subst1-header">
                             <p>#</p>
                             <p>Woord</p>
-                            <p>Geslacht</p>
+                            <p>Genus</p>
                             <p>Vertaling</p>
                             <p>Pagina</p>
                         </div>
@@ -85,6 +126,28 @@ function AddTool() {
                             )
                         })}
                     </div>
+
+                    <form className="addtool-form addtool-form-subst1" id="form-scroll-anchor" onSubmit={addWord}>
+                        <select value={selectedInputField} onChange={e => setSelectedInputField(e.target.value)}>
+                            {Object.keys(inputFields).map(inputField => {
+                                return <option value={inputField} key={inputField}>{inputField}</option>
+                            })}
+                        </select>
+                        {inputFields[selectedInputField].map(inputField => {
+                            return (
+                                <input
+                                    type={inputField === 'page' ? 'number' : 'text'}
+                                    name={inputField}
+                                    key={inputField}
+                                    placeholder={Ariadne.toDutch(inputField)}
+                                    autoComplete="off"
+                                    onChange={e => setFormInput({ ...formInput, [e.target.name]: e.target.value })}
+                                    onKeyPress={inputField === 'page' ? (e => { if (e.key === 'Enter') addWord() }) : undefined}
+                                />
+                            );
+                        })}
+                        <button>Voeg toe</button>
+                    </form>
                 </div>
             )}
         </div>

@@ -9,6 +9,11 @@
         padding-top: 6rem;
     }
 
+    .edit-interface {
+        padding-bottom: 2rem;
+    }
+
+    select,
     input, 
     button {
         border-radius: 8px;
@@ -22,5 +27,22 @@
         margin: 1rem auto 0 auto;
         background-color: var(--btn-color-primary);
         color: white;
+    }
+
+    .addtool-form {
+        select {
+            display: block;
+            margin: auto auto 2rem auto;
+        }
+
+        input {
+            &::placeholder {
+                text-transform: capitalize;
+            }
+
+            & + input {
+                margin-left: 1rem;
+            }
+        }
     }
 }
