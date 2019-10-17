@@ -42,6 +42,7 @@ router.get('/specific/:start/:end', (ereq, eres, next) => {
 
 // Inserting a new word into the database
 router.put('/add/:word', authorize, (ereq, eres, next) => {
+    console.log('word added');
     const { word } = ereq.params;
     const properties = {};
     Object.keys(ereq.query).forEach(key => {
@@ -50,7 +51,7 @@ router.put('/add/:word', authorize, (ereq, eres, next) => {
     });
     const { type } = properties;
     if (type === 'subst1') {
-        pool.query(`INSERT INTO dictionary (word, genus, translation, page) VALUES ('${word}', '${properties.genus}', '${properties.translation}', ${properties.page})`, (err, pres) => {
+        pool.query(`INSERT INTO dictionary (id, word, genus, translation, page) VALUES (${properties.id}, '${word}', '${properties.genus}', '${properties.translation}', ${properties.page})`, (err, pres) => {
             if (err) { console.log(err) };
             eres.send(pres);
         })
