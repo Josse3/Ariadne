@@ -51,6 +51,7 @@ function AddTool() {
         event && event.preventDefault();
         const queryObject = JSON.parse(JSON.stringify(formInput));
         delete queryObject.word;
+        // Composing query string
         const queryString =
             encodeURIComponent(formInput.word) +
             '?' +
@@ -65,14 +66,23 @@ function AddTool() {
             '&type=subst1';
 
 
+        // Fetch call
         fetch(`/db/add/${queryString}`, { method: 'PUT' })
             .then(response => {
                 if (!response.ok) throw Error('Failed adding word to the database');
                 return response.json();
             });
 
+        // Resetting form
         document.querySelector('.addtool-form').reset();
         wordInput.current.focus();
+
+        // Adding word to dictionary object to update visible vocabularium list
+        setDictionary([...dictionary, {
+            id: dictionary.length + 1,
+            word: formInput.word,
+            ...queryObject
+        }]);
     }
 
     return (
@@ -130,7 +140,11 @@ function AddTool() {
                         })}
                     </div>
 
-                    <form className="addtool-form addtool-form-subst1" id="form-scroll-anchor" onSubmit={addWord}>
+                    <form
+                        className="addtool-form addtool-form-subst1"
+                        id="form-scroll-anchor"
+                        onSubmit={addWord}
+                    >
                         <select value={selectedInputField} onChange={e => setSelectedInputField(e.target.value)}>
                             {Object.keys(inputFields).map(inputField => {
                                 return <option value={inputField} key={inputField}>{inputField}</option>
@@ -146,7 +160,6 @@ function AddTool() {
                                     placeholder={Ariadne.toDutch(inputField)}
                                     autoComplete="off"
                                     onChange={e => setFormInput({ ...formInput, [e.target.name]: e.target.value })}
-                                    onKeyPress={inputField === 'page' ? (e => { if (e.key === 'Enter') addWord() }) : undefined}
                                 />
                             );
                         })}
