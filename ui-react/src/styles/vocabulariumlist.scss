@@ -6,6 +6,7 @@
         .subst1-header, .word-item-subst1 {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
+            position: relative;
         }
 
         .word-item-subst1 {
@@ -22,6 +23,15 @@
                 }
             }
         }
+    
+    .word-item {
+        button {
+            position: absolute;
+            right: -3rem;
+            bottom: 50%;
+            transform: translateY(50%);
+        }
+    }
 
     .subst1-header {
         background-color: #92734a;

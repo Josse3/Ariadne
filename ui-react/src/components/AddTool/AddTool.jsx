@@ -124,7 +124,7 @@ function AddTool() {
                         </div>
                         {dictionary.map(wordObj => {
                             return (
-                                <div className="word-item-subst1" key={`word-item-${wordObj.word}`}>
+                                <div className="word-item word-item-subst1" key={`word-item-${wordObj.word}`}>
                                     {Object.entries(wordObj).map(([key, value]) => {
                                         let displayedParameter = value;
                                         if (key === 'word') {
@@ -135,6 +135,9 @@ function AddTool() {
                                         }
                                         return <p key={key}>{displayedParameter}</p>
                                     })}
+                                    <button className="edit-button">
+                                        <i className="fas fa-pencil-alt"></i>
+                                    </button>
                                 </div>
                             )
                         })}
