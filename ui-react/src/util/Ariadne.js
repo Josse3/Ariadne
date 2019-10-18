@@ -150,6 +150,8 @@ const Ariadne = {
                     return 'ο';
                 case 'o(':
                     return 'ὁ';
+                case 'o)':
+                    return 'ὀ';
                 case 'o/':
                     return 'ό';
                 case 'o(/':
