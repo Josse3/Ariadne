@@ -108,7 +108,7 @@ function AddTool() {
                 <div className="edit-interface">
                     <Link
                         to="form-scroll-anchor"
-                        duration={250}
+                        duration={500}
                         smooth={true}
                     >
                         <button>Voeg woorden toe</button>
