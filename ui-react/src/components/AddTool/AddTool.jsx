@@ -19,6 +19,8 @@ function AddTool() {
         subst1: ['word', 'genus', 'translation', 'page'],
         subst2: ['word', 'genus', 'genitive', 'translation', 'page']
     }
+    const [updateWordModalId, setUpdateWordModalId] = useState(null); // Index of the word being editted in update-word modal
+    const [updateWordModalInput, setUpdateWordModalInput] = useState({}); // Input inside 
     const wordInput = useRef(null); // ref for input field 'word' inside form
     const [formInput, setFormInput] = useState({});
     // Phase
@@ -44,7 +46,23 @@ function AddTool() {
                 })
                 .then(setDictionary);
         }
-    }, [phase])
+    }, [phase]);
+
+    // Brining up the update modal to update a certain word on button click
+    const bringUpUpdateWordModal = index => {
+        setUpdateWordModalInput(dictionary[index]);
+        setUpdateWordModalId(index);
+    }
+
+    // Update input inside update modal
+    const updateUpdateWordModalInput = event => {
+        setUpdateWordModalInput({ ...updateWordModalInput, [event.target.name]: event.target.value });
+    }
+
+    // Update word from update modal
+    const updateWord = () => {
+        console.log(updateWordModalInput);
+    }
 
     // Adding a word to the database
     const addWord = event => {
@@ -122,7 +140,7 @@ function AddTool() {
                             <p>Vertaling</p>
                             <p>Pagina</p>
                         </div>
-                        {dictionary.map(wordObj => {
+                        {dictionary.map((wordObj, i) => {
                             return (
                                 <div className="word-item word-item-subst1" key={`word-item-${wordObj.word}`}>
                                     {Object.entries(wordObj).map(([key, value]) => {
@@ -135,13 +153,35 @@ function AddTool() {
                                         }
                                         return <p key={key}>{displayedParameter}</p>
                                     })}
-                                    <button className="edit-button">
+                                    <button className="edit-button" onClick={() => bringUpUpdateWordModal(i)}>
                                         <i className="fas fa-pencil-alt"></i>
                                     </button>
                                 </div>
                             )
                         })}
                     </div>
+
+                    {updateWordModalId !== null && <div className="update-word-modal">
+                        <div className="inputfields">
+                            {Object.entries(dictionary[updateWordModalId]).map(([key, value]) => {
+                                return (
+                                    <div key={key}>
+                                        <p>{Ariadne.toDutch(key)}</p>
+                                        {key !== 'id' && (
+                                            <input
+                                                type={key === 'page' ? 'number' : 'text'}
+                                                name={key}
+                                                value={updateWordModalInput[key]}
+                                                onChange={updateUpdateWordModalInput}
+                                            />
+                                        )}
+                                        {key === 'id' && <p>{value}</p>}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <button onClick={updateWord}>Update</button>
+                    </div>}
 
                     <form
                         className="addtool-form addtool-form-subst1"
