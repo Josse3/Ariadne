@@ -42,7 +42,6 @@ router.get('/specific/:start/:end', (ereq, eres, next) => {
 
 // Inserting a new word into the database
 router.put('/add/:word', authorize, (ereq, eres, next) => {
-    console.log('word added');
     const { word } = ereq.params;
     const properties = {};
     Object.keys(ereq.query).forEach(key => {
