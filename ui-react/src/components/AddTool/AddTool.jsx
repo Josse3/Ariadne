@@ -62,6 +62,7 @@ function AddTool() {
     // Update word from update modal
     const updateWord = () => {
         console.log(updateWordModalInput);
+        setUpdateWordModalId(null); // Hides modal
     }
 
     // Adding a word to the database
