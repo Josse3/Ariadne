@@ -55,6 +55,15 @@
         }
     }
 
+    .word-item {
+        button {
+            position: absolute;
+            right: -3rem;
+            bottom: 50%;
+            transform: translateY(50%);
+        }
+    }
+
     .addtool-form {
         select {
             display: block;
