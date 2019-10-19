@@ -58,6 +58,25 @@ router.put('/add/:word', authorize, (ereq, eres, next) => {
     }
 })
 
+// Updating an existing work inside the database
+router.put('/update/:id', authorize, (ereq, eres) => {
+    const updates =
+        Object.entries(ereq.query).map(([key, value]) => {
+            const SQLValue = Number.isNaN(Number(value)) ? `'${value}'` : value;
+            return key + ' = ' + SQLValue;
+        })
+            .join(', ');
+
+    const query = {
+        text: `UPDATE dictionary SET ${updates} WHERE id = $1`,
+        values: [ereq.params.id]
+    }
+
+    pool.query(query, err => {
+        if (err) throw err;
+    });
+})
+
 // Getting works, their author, codes and properties from 'work'-table
 router.get('/works', (ereq, eres, next) => {
     pool.query('SELECT * FROM works', (err, pres) => {

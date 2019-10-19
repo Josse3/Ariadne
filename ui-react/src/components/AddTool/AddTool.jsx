@@ -61,7 +61,19 @@ function AddTool() {
 
     // Update word from update modal
     const updateWord = () => {
-        console.log(updateWordModalInput);
+        const queryParameters = { ...updateWordModalInput };
+        delete queryParameters.id;
+        const queryString =
+            Object.entries(queryParameters).map(([key, value]) => {
+                return key + '=' + encodeURIComponent(value);
+            })
+                .join('&');
+
+        fetch(`/db/update/${updateWordModalInput.id}?${queryString}`, { method: 'PUT' })
+            .then(response => {
+                if (!response.ok) throw Error(`${response.status} (${response.statusText})`)
+            });
+
         setUpdateWordModalId(null); // Hides modal
     }
 
