@@ -75,6 +75,11 @@ function AddTool() {
             });
 
         setUpdateWordModalId(null); // Hides modal
+        // Updating visible word list
+        const newDictionary = dictionary.slice();
+        newDictionary[updateWordModalInput.id - 1] = updateWordModalInput;
+        setDictionary(newDictionary);
+        console.log(updateWordModalInput.id);
     }
 
     // Adding a word to the database
