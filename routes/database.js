@@ -76,6 +76,27 @@ router.put('/update/:id', authorize, (ereq, eres) => {
     });
 })
 
+// Deleting a word from the database
+router.delete('/delete/:id', authorize, async (ereq, eres) => {
+    // Delete from database
+    pool.query(`DELETE FROM dictionary WHERE id = $1`, [ereq.params.id], (err, pres) => {
+        if (err) throw err;
+    })
+    // Decrement id of all following words by 1
+    const followingRows = await pool.query('SELECT id FROM dictionary WHERE id > $1', [ereq.params.id])
+        .then(pres => {
+            return pres.rows;
+        })
+        .catch(error => console.log(error));
+
+    if (followingRows !== undefined) {
+        followingRows.forEach(row => {
+            pool.query('UPDATE dictionary SET id = $1 WHERE id = $2', [row.id - 1, row.id])
+                .catch(error => console.log(error))
+        })
+    }
+})
+
 // Getting works, their author, codes and properties from 'work'-table
 router.get('/works', (ereq, eres, next) => {
     pool.query('SELECT * FROM works', (err, pres) => {
