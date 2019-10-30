@@ -174,6 +174,8 @@ const Ariadne = {
                     return 'ῦ';
                 case 'u)':
                     return 'ὐ';
+                case 'u(':
+                    return 'ὑ';
                 case 'u(/':
                     return 'ὕ';
                 case 'u/':
@@ -186,6 +188,10 @@ const Ariadne = {
                     return 'ψ';
                 case 'w':
                     return 'ω';
+                case 'w/':
+                    return 'ώ';
+                case 'w)/':
+                    return 'ὤ';
                 case 'w=':
                     return 'ῶ';
                 case 'w)=':
