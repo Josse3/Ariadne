@@ -14,12 +14,25 @@
         cursor: pointer;
     }
 
+    &.navbox-1,
+    &.navbox-2,
+    &.navbox-3 {
+        @media (max-width: 1000px) {
+            width: 100%;
+        }
+    }
+
     &.navbox-1 {
         justify-self: flex-start;
         background: #6C3135;
 
         button {
             background: #905257;
+        }
+
+        @media (max-width: 1000px) {
+            justify-self: stretch;
+            grid-area: initial;
         }
     }
 
@@ -30,6 +43,11 @@
         button {
             background: #4A726D;
         }
+
+        @media (max-width: 1000px) {
+            justify-self: stretch;
+            grid-area: initial;
+        }
     }
 
     &.navbox-3 {
@@ -39,6 +57,11 @@
 
         button {
             background: #BBA57B;
+        }
+
+        @media (max-width: 1000px) {
+            justify-self: stretch;
+            grid-area: initial;
         }
     }
 

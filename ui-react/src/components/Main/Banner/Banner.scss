@@ -7,19 +7,25 @@ $banner-height: 50vh;
   background-blend-mode: multiply;
   background-position: contain;
   clip-path: polygon(0 0, 100% 0, 100% calc(#{$banner-height} / 2), 50% $banner-height, 0 calc(#{$banner-height} / 2));
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
   align-items: center;
-  flex-direction: column;
 
   h1 {
     color: white;
-    transform: translateY(-50%);
     font-size: 6rem;
+    line-height: 6rem;
   }
 
   h2 {
+    align-self: flex-start;
     font-size: 2.5rem;
     color: #DAC8A8;
+    text-align: center;
+  }
+
+  @media (max-width: 675px) {
+    grid-template-rows: repeat(2, 30vw);
   }
 }
