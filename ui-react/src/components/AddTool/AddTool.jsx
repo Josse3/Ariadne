@@ -218,8 +218,8 @@ function AddTool() {
                                             <>
                                                 <p>#</p>
                                                 <p>Woord</p>
-                                                <p>Genus</p>
                                                 <p>Genitief</p>
+                                                <p>Genus</p>
                                                 <p>Vertaling</p>
                                                 <p>Pagina</p>
                                             </>
