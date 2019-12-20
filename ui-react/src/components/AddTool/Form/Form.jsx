@@ -5,14 +5,14 @@ const Form = props => {
     const [selectedInputField, setSelectedInputField] = useState('subst1');
     const inputFields = {
         subst1: ['word', 'genus', 'translation', 'page'],
-        subst2: ['word', 'genus', 'genitive', 'translation', 'page']
+        subst2: ['word', 'genitive', 'genus', 'translation', 'page']
     }
     const wordInput = useRef(null); // ref for input field 'word' inside form
     const [formInput, setFormInput] = useState({});
 
     const handleFormSubmit = event => {
         event.preventDefault();
-        props.handleSubmit(formInput);
+        props.handleSubmit({ ...formInput, type: selectedInputField });
 
         // Resetting form
         document.querySelector('.addtool-form').reset();
