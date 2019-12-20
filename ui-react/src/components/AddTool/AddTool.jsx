@@ -241,7 +241,7 @@ function AddTool() {
                                                         return <p key={key}>{displayedParameter}</p>
                                                     };
                                                 })}
-                                                <button className="edit-button" onClick={() => bringUpUpdateWordModal(i)}>
+                                                <button className="edit-button" onClick={() => bringUpUpdateWordModal(breakpoint + i)}>
                                                     <i className="fas fa-pencil-alt"></i>
                                                 </button>
                                             </div>
