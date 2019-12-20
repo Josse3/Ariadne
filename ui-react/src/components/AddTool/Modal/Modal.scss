@@ -1,0 +1,58 @@
+.modal {
+    background: white;
+    min-width: 60vw;
+    min-height: 20vh;
+    border-radius: 1rem;
+    padding: 2rem 2rem 1.5rem 2rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    button.close-button {
+        position: absolute;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        color: darkred;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 0;
+        margin: 0;
+        right: .75rem;
+        top: 0rem;
+        cursor: pointer;
+    }
+
+    .inputfields {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+            
+        p {
+            text-transform: capitalize;
+            margin-bottom: .5rem;
+        }
+
+        input {
+            margin-left: 1rem;
+        }
+    }
+
+    .button-row {
+        display: flex;
+        justify-content: center;
+        
+        button {
+            margin: 1rem 1rem 0 1rem;
+
+            &.delete-button {
+                background-color: darkred;
+            }
+        }
+    }
+}

@@ -5,6 +5,8 @@ import './AddTool.css';
 import '../../styles/vocabulariumlist.css';
 // Components
 import Header from '../Header/Header';
+import Form from './Form/Form';
+import Modal from './Modal/Modal';
 // Util
 import Ariadne from '../../util/Ariadne';
 
@@ -14,15 +16,20 @@ function AddTool() {
     const [authenticationFailed, setAuthenticationFailed] = useState(false);
     // Edit interface
     const [dictionary, setDictionary] = useState([]);
-    const [selectedInputField, setSelectedInputField] = useState('subst1');
-    const inputFields = {
-        subst1: ['word', 'genus', 'translation', 'page'],
-        subst2: ['word', 'genus', 'genitive', 'translation', 'page']
-    }
-    const [updateWordModalId, setUpdateWordModalId] = useState(null); // Index of the word being editted in update-word modal
-    const [updateWordModalInput, setUpdateWordModalInput] = useState({}); // Input inside 
-    const wordInput = useRef(null); // ref for input field 'word' inside form
-    const [formInput, setFormInput] = useState({});
+    const [listStructure, setListStructure] = useState([]);
+    useEffect(() => {
+        if (dictionary.length > 0 && listStructure.length === 0) {
+            setListStructure([
+                { subst1: 0 },
+                { subst2: dictionary.findIndex(wordObj => wordObj.genitive !== null) }
+            ]);
+        };
+    }, [dictionary, listStructure]);
+
+    const [updateWordModalInput, setUpdateWordModalInput] = useState({}); // Default input of update-word modal
+    const [updateWordModalId, setUpdateWordModalId] = useState(null); // Index of the word being editted in update-word modal (null if hidden)
+
+    const [insertWordModalId, setInsertWordModalId] = useState(null); // Index of the new word to be added in the insert-word modal (null if hidden)
     // Phase
     const [phase, setPhase] = useState('editing');
 
@@ -48,20 +55,27 @@ function AddTool() {
         }
     }, [phase]);
 
+    // Rerender liststructure whenever dictionary is updated
+    useEffect(() => {
+        if (dictionary.length > 0) {
+            setListStructure([...listStructure]);
+        }
+    }, [dictionary]);
+
+    const closeModal = () => {
+        setUpdateWordModalId(null);
+        setInsertWordModalId(null);
+    }
+
     // Brining up the update modal to update a certain word on button click
     const bringUpUpdateWordModal = index => {
         setUpdateWordModalInput(dictionary[index]);
         setUpdateWordModalId(index);
     }
 
-    // Update input inside update modal
-    const updateUpdateWordModalInput = event => {
-        setUpdateWordModalInput({ ...updateWordModalInput, [event.target.name]: event.target.value });
-    }
-
     // Update word from update modal
-    const updateWord = () => {
-        const queryParameters = { ...updateWordModalInput };
+    const updateWord = formInput => {
+        const queryParameters = { ...formInput };
         delete queryParameters.id;
         const queryString =
             Object.entries(queryParameters).map(([key, value]) => {
@@ -69,7 +83,7 @@ function AddTool() {
             })
                 .join('&');
 
-        fetch(`/db/update/${updateWordModalInput.id}?${queryString}`, { method: 'PUT' })
+        fetch(`/db/update/${formInput.id}?${queryString}`, { method: 'PUT' })
             .then(response => {
                 if (!response.ok) throw Error(`${response.status} (${response.statusText})`)
             });
@@ -77,13 +91,45 @@ function AddTool() {
         setUpdateWordModalId(null); // Hides modal
         // Updating visible word list
         const newDictionary = dictionary.slice();
-        newDictionary[updateWordModalInput.id - 1] = updateWordModalInput;
+        newDictionary[updateWordModalInput.id - 1] = formInput;
         setDictionary(newDictionary);
     }
 
+    // Deleting a word via the "update word" modal
+    const deleteWord = index => {
+        fetch(`/db/delete/${index + 1}`, { method: 'DELETE' })
+            .then(response => {
+                if (!response.ok) throw Error(`Failed deleting word in database: ${response.status} (${response.statusText})`);
+                return response.json();
+            });
+        const newDictionary = dictionary.slice();
+        newDictionary.splice(index, 1);
+        // Decrementing id of all words that come after by one 
+        newDictionary.map((word, i) => {
+            if (i >= index) {
+                word.id--;
+            }
+        })
+
+        // Close modal
+        setUpdateWordModalId(null);
+
+        setDictionary(newDictionary);
+    }
+
+    // Bring up insert modal via insert button
+    const bringUpInsertWordModal = index => {
+        setInsertWordModalId(index);
+    }
+
+    // Inserting a word between to existing words in the database
+    const insertWord = formInput => {
+        console.log({ id: insertWordModalId, ...formInput });
+        setInsertWordModalId(null);
+    }
+
     // Adding a word to the database
-    const addWord = event => {
-        event && event.preventDefault();
+    const addWord = formInput => {
         const queryObject = JSON.parse(JSON.stringify(formInput));
         delete queryObject.word;
         // Composing query string
@@ -107,10 +153,6 @@ function AddTool() {
                 if (!response.ok) throw Error('Failed adding word to the database');
                 return response.json();
             });
-
-        // Resetting form
-        document.querySelector('.addtool-form').reset();
-        wordInput.current.focus();
 
         // Adding word to dictionary object to update visible vocabularium list
         setDictionary([...dictionary, {
@@ -148,83 +190,90 @@ function AddTool() {
                     >
                         <button>Voeg woorden toe</button>
                     </Link>
-                    <h1>Substantieven eerste vervoeging</h1>
-                    <div className="vocabularium-list-grid vocabularium-list-subst1">
-                        <div className="subst1-header">
-                            <p>#</p>
-                            <p>Woord</p>
-                            <p>Genus</p>
-                            <p>Vertaling</p>
-                            <p>Pagina</p>
-                        </div>
-                        {dictionary.map((wordObj, i) => {
-                            return (
-                                <div className="word-item word-item-subst1" key={`word-item-${wordObj.word}`}>
-                                    {Object.entries(wordObj).map(([key, value]) => {
-                                        let displayedParameter = value;
-                                        if (key === 'word') {
-                                            displayedParameter = Ariadne.toGreek(value);
-                                        }
-                                        if (key === 'genus') {
-                                            displayedParameter = Ariadne.renderGenus(value);
-                                        }
-                                        return <p key={key}>{displayedParameter}</p>
-                                    })}
-                                    <button className="edit-button" onClick={() => bringUpUpdateWordModal(i)}>
-                                        <i className="fas fa-pencil-alt"></i>
-                                    </button>
-                                </div>
-                            )
-                        })}
-                    </div>
 
-                    {updateWordModalId !== null && <div className="update-word-modal">
-                        <div className="inputfields">
-                            {Object.entries(dictionary[updateWordModalId]).map(([key, value]) => {
-                                return (
-                                    <div key={key}>
-                                        <p>{Ariadne.toDutch(key)}</p>
-                                        {key !== 'id' && (
-                                            <input
-                                                type={key === 'page' ? 'number' : 'text'}
-                                                name={key}
-                                                value={updateWordModalInput[key]}
-                                                onChange={updateUpdateWordModalInput}
-                                            />
+                    {listStructure.map((part, i) => {
+                        const partName = Object.keys(part)[0];
+                        const breakpoint = Object.values(part)[0];
+                        const nextPartBreakpoint = listStructure[i + 1] !== undefined ? Object.values(listStructure[i + 1])[0] : dictionary.length;
+                        return (
+                            <div className={`vocabularium-list-grid vocabularium-list-${partName}`} key={`${part}-${i}`}>
+                                {partName === "subst1" && (
+                                    <h1>Substantieven eerste vervoeging</h1>
+                                )}
+                                {partName === "subst2" && (
+                                    <h1>Substantieven tweede vervoeging</h1>
+                                )}
+                                <>
+                                    <div className={`section-header ${partName}-header`}>
+                                        {partName === "subst1" && (
+                                            <>
+                                                <p>#</p>
+                                                <p>Woord</p>
+                                                <p>Genus</p>
+                                                <p>Vertaling</p>
+                                                <p>Pagina</p>
+                                            </>
                                         )}
-                                        {key === 'id' && <p>{value}</p>}
+                                        {partName === "subst2" && (
+                                            <>
+                                                <p>#</p>
+                                                <p>Woord</p>
+                                                <p>Genus</p>
+                                                <p>Genitief</p>
+                                                <p>Vertaling</p>
+                                                <p>Pagina</p>
+                                            </>
+                                        )}
                                     </div>
-                                );
-                            })}
-                        </div>
-                        <button onClick={updateWord}>Update</button>
-                    </div>}
+                                    {dictionary.slice(breakpoint, nextPartBreakpoint).map((wordObj, i) => {
+                                        return (
+                                            <div className={`word-item word-item-${partName}`} key={`word-item-${wordObj.word}`}>
+                                                {i !== 0 && <button className="insert-button" onClick={() => bringUpInsertWordModal(i + 1)}>+</button>}
+                                                {Object.entries(wordObj).map(([key, value]) => {
+                                                    if (value !== null) {
+                                                        let displayedParameter = value;
+                                                        if (key === 'word' || key === 'genitive') {
+                                                            displayedParameter = Ariadne.toGreek(value);
+                                                        }
+                                                        if (key === 'genus') {
+                                                            displayedParameter = Ariadne.renderGenus(value);
+                                                        }
+                                                        return <p key={key}>{displayedParameter}</p>
+                                                    };
+                                                })}
+                                                <button className="edit-button" onClick={() => bringUpUpdateWordModal(i)}>
+                                                    <i className="fas fa-pencil-alt"></i>
+                                                </button>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                            </div>
+                        );
+                    })}
+                    {updateWordModalId !== null && (
+                        <Modal
+                            type="update-word"
+                            dictionary={dictionary}
+                            id={updateWordModalId}
+                            input={updateWordModalInput}
+                            handleWordUpdate={updateWord}
+                            handleModalClose={closeModal}
+                            handleWordDelete={deleteWord}
+                        />
+                    )}
 
-                    <form
-                        className="addtool-form addtool-form-subst1"
-                        id="form-scroll-anchor"
-                        onSubmit={addWord}
-                    >
-                        <select value={selectedInputField} onChange={e => setSelectedInputField(e.target.value)}>
-                            {Object.keys(inputFields).map(inputField => {
-                                return <option value={inputField} key={inputField}>{inputField}</option>
-                            })}
-                        </select>
-                        {inputFields[selectedInputField].map(inputField => {
-                            return (
-                                <input
-                                    ref={inputField === 'word' ? wordInput : undefined}
-                                    type={inputField === 'page' ? 'number' : 'text'}
-                                    name={inputField}
-                                    key={inputField}
-                                    placeholder={Ariadne.toDutch(inputField)}
-                                    autoComplete="off"
-                                    onChange={e => setFormInput({ ...formInput, [e.target.name]: e.target.value })}
-                                />
-                            );
-                        })}
-                        <button>Voeg toe</button>
-                    </form>
+                    {insertWordModalId !== null && (
+                        <Modal
+                            type="insert-word"
+                            handleWordInsert={insertWord}
+                            handleModalClose={closeModal}
+                        />
+                    )}
+
+                    <Form
+                        handleSubmit={addWord}
+                    />
                 </div>
             )}
         </div>

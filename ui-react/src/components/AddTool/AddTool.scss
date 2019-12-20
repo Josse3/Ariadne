@@ -29,38 +29,25 @@
         color: white;
     }
 
-    .update-word-modal {
-        background: white;
-        min-width: 60vw;
-        min-height: 20vh;
-        border-radius: 1rem;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        .inputfields {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            
-            p {
-                text-transform: capitalize;
-                margin-bottom: .5rem;
-            }
-        }
-    }
-
     .word-item {
         button {
             position: absolute;
-            right: -3rem;
-            bottom: 50%;
-            transform: translateY(50%);
+
+            &.insert-button {
+                border-radius: 50%;
+                transform: translateY(-100%);
+                padding: 0;
+                margin-left: .5rem;
+                $button-size: 1.5rem;
+                width: $button-size;
+                height: $button-size;
+            }
+
+            &.edit-button {
+                right: -3rem;
+                bottom: 50%;
+                transform: translateY(50%);
+            }
         }
     }
 
