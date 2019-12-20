@@ -20,6 +20,7 @@ const Modal = props => {
                 <>
                     <div className="inputfields">
                         {Object.entries(props.dictionary[props.id]).map(([key, value]) => {
+                            const initialValue = updateWordModalInput[key] || undefined;
                             return (
                                 <div key={key}>
                                     <p>{Ariadne.toDutch(key)}</p>
@@ -27,7 +28,7 @@ const Modal = props => {
                                         <input
                                             type={key === 'page' ? 'number' : 'text'}
                                             name={key}
-                                            value={updateWordModalInput[key]}
+                                            value={initialValue}
                                             onChange={updateUpdateWordModalInput}
                                         />
                                     )}
