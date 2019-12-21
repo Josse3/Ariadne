@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 // CSS
 import './AddTool.css';
-import '../../styles/vocabulariumlist.css';
 // Components
 import Header from '../Header/Header';
 import Form from './Form/Form';
 import Modal from './Modal/Modal';
-// Util
-import Ariadne from '../../util/Ariadne';
+import VocabulariumListGridsContainer from '../VocabulariumListGridsContainer/VocabulariumListGridsContainer';
 
 function AddTool() {
     // Authentication page
@@ -16,15 +14,6 @@ function AddTool() {
     const [authenticationFailed, setAuthenticationFailed] = useState(false);
     // Edit interface
     const [dictionary, setDictionary] = useState([]);
-    const [listStructure, setListStructure] = useState([]);
-    useEffect(() => {
-        if (dictionary.length > 0 && listStructure.length === 0) {
-            setListStructure([
-                { subst1: 0 },
-                { subst2: dictionary.findIndex(wordObj => wordObj.genitive !== null) }
-            ]);
-        };
-    }, [dictionary, listStructure]);
 
     const [updateWordModalInput, setUpdateWordModalInput] = useState({}); // Default input of update-word modal
     const [updateWordModalId, setUpdateWordModalId] = useState(null); // Index of the word being editted in update-word modal (null if hidden)
@@ -56,11 +45,11 @@ function AddTool() {
     }, [phase]);
 
     // Rerender liststructure whenever dictionary is updated
-    useEffect(() => {
+    /* useEffect(() => {
         if (dictionary.length > 0) {
             setListStructure([...listStructure]);
         }
-    }, [dictionary]);
+    }, [dictionary]); */
 
     const closeModal = () => {
         setUpdateWordModalId(null);
@@ -191,67 +180,12 @@ function AddTool() {
                     >
                         <button>Voeg woorden toe</button>
                     </Link>
-
-                    {listStructure.map((part, i) => {
-                        const partName = Object.keys(part)[0];
-                        const breakpoint = Object.values(part)[0];
-                        const nextPartBreakpoint = listStructure[i + 1] !== undefined ? Object.values(listStructure[i + 1])[0] : dictionary.length;
-                        return (
-                            <div className={`vocabularium-list-grid vocabularium-list-${partName}`} key={`${part}-${i}`}>
-                                {partName === "subst1" && (
-                                    <h1>Substantieven eerste vervoeging</h1>
-                                )}
-                                {partName === "subst2" && (
-                                    <h1>Substantieven tweede vervoeging</h1>
-                                )}
-                                <>
-                                    <div className={`section-header ${partName}-header`}>
-                                        {partName === "subst1" && (
-                                            <>
-                                                <p>#</p>
-                                                <p>Woord</p>
-                                                <p>Genus</p>
-                                                <p>Vertaling</p>
-                                                <p>Pagina</p>
-                                            </>
-                                        )}
-                                        {partName === "subst2" && (
-                                            <>
-                                                <p>#</p>
-                                                <p>Woord</p>
-                                                <p>Genitief</p>
-                                                <p>Genus</p>
-                                                <p>Vertaling</p>
-                                                <p>Pagina</p>
-                                            </>
-                                        )}
-                                    </div>
-                                    {dictionary.slice(breakpoint, nextPartBreakpoint).map((wordObj, i) => {
-                                        return (
-                                            <div className={`word-item word-item-${partName}`} key={`word-item-${wordObj.word}`}>
-                                                {i !== 0 && <button className="insert-button" onClick={() => bringUpInsertWordModal(i + 1)}>+</button>}
-                                                {Object.entries(wordObj).map(([key, value]) => {
-                                                    if (value !== null) {
-                                                        let displayedParameter = value;
-                                                        if (key === 'word' || key === 'genitive') {
-                                                            displayedParameter = Ariadne.toGreek(value);
-                                                        }
-                                                        if (key === 'genus') {
-                                                            displayedParameter = Ariadne.renderGenus(value);
-                                                        }
-                                                        return <p key={key}>{displayedParameter}</p>
-                                                    };
-                                                })}
-                                                <button className="edit-button" onClick={() => bringUpUpdateWordModal(breakpoint + i)}>
-                                                    <i className="fas fa-pencil-alt"></i>
-                                                </button>
-                                            </div>
-                                        )
-                                    })}
-                                </>
-                            </div>
-                        );
-                    })}
+                    <VocabulariumListGridsContainer
+                        editable={true}
+                        dictionary={dictionary}
+                        bringUpInsertWordModal={bringUpInsertWordModal}
+                        bringUpUpdateWordModal={bringUpUpdateWordModal}
+                    />
                     {updateWordModalId !== null && (
                         <Modal
                             type="update-word"

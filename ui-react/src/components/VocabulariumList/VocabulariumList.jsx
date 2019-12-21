@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 // CSS
 import './VocabulariumList.css';
-import '../../styles/vocabulariumlist.css';
 // Components
 import Header from '../Header/Header';
+import VocabulariumListGridsContainer from '../VocabulariumListGridsContainer/VocabulariumListGridsContainer';
 // Util
 import Ariadne from '../../util/Ariadne';
 
@@ -35,41 +35,7 @@ function VocabulariumList() {
         setMatchingWords(dictionary.filter(wordObj => {
             return wordObj.word.startsWith(searchTerm);
         }));
-    }, [searchTerm, dictionary])
-
-    const provideListHTML = () => {
-        if (matchingWords) {
-            setWordListHTML(
-                <div className="vocabularium-list-subst1">
-                    <div className="subst1-header">
-                        <p>#</p>
-                        <p>Woord</p>
-                        <p>Genus</p>
-                        <p>Vertaling</p>
-                        <p>Pagina</p>
-                    </div>
-                    {matchingWords.map(wordObj => {
-                        return (
-                            <div key={`word-item-${wordObj.word}`} className="word-item-subst1">
-                                {Object.keys(wordObj).map(wordProperty => {
-                                    let displayedProperty;
-                                    if (wordProperty === 'word') {
-                                        displayedProperty = Ariadne.toGreek(wordObj[wordProperty]);
-                                    } else if (wordProperty === 'genus') {
-                                        displayedProperty = Ariadne.renderGenus(wordObj[wordProperty]);
-                                    } else {
-                                        displayedProperty = wordObj[wordProperty];
-                                    }
-                                    return <p key={`word-item-detail-${wordObj.word}-${wordProperty}`} className="word-item-detail">{displayedProperty}</p>
-                                })}
-                            </div>
-                        );
-                    })}
-                </div>)
-        }
-    }
-
-    useEffect(provideListHTML, [matchingWords]);
+    }, [searchTerm, dictionary]);
 
     return (
         <div className="vocabularium-list">
@@ -81,7 +47,10 @@ function VocabulariumList() {
                     <i className="fas fa-search"></i>
                 </button>
             </div>
-            {wordListHTML}
+            <VocabulariumListGridsContainer
+                editable={false}
+                dictionary={matchingWords}
+            />
         </div>
     )
 }
