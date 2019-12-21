@@ -15,8 +15,6 @@ const VocabulariumListGridsContainer = props => {
         };
     }, [props.dictionary, listStructure]);
 
-    // const bringUpInsertWordModal = props.bringUpInsertWordModal || undefined;
-
     return (
         <div className="vocabularium-list-grids-container">
             {listStructure.map((part, i) => {
