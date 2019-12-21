@@ -132,6 +132,7 @@ function AddTool() {
     const addWord = formInput => {
         const queryObject = JSON.parse(JSON.stringify(formInput));
         delete queryObject.word;
+        delete queryObject.type;
         // Composing query string
         const queryString =
             encodeURIComponent(formInput.word) +
@@ -144,7 +145,7 @@ function AddTool() {
             })
                 .join('&')
                 .replace(/,/g, '=') +
-            '&type=subst1';
+            `&type=${formInput.type}`;
 
 
         // Fetch call

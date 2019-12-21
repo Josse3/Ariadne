@@ -48,9 +48,18 @@ router.put('/add/:word', authorize, (ereq, eres, next) => {
         const value = decodeURIComponent(ereq.query[key]);
         properties[key] = value;
     });
-    const { type } = properties;
+    const { id, type } = properties;
+    delete properties.id;
+    delete properties.type;
+
+    const arguments = [id, word, ...Object.values(properties)];
     if (type === 'subst1') {
-        pool.query(`INSERT INTO dictionary (id, word, genus, translation, page) VALUES (${properties.id}, '${word}', '${properties.genus}', '${properties.translation}', ${properties.page})`, (err, pres) => {
+        pool.query(`INSERT INTO dictionary (id, word, genus, translation, page) VALUES (${id}, '${word}', '${properties.genus}', '${properties.translation}', ${properties.page})`, (err, pres) => {
+            if (err) { console.log(err) };
+            eres.send(pres);
+        })
+    } else if (type === 'subst2') {
+        pool.query(`INSERT INTO dictionary (id, word, genitive, genus, translation, page) VALUES ($1, $2, $3, $4, $5, $6)`, arguments, (err, pres) => {
             if (err) { console.log(err) };
             eres.send(pres);
         })
