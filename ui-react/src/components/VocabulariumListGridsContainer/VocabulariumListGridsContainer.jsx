@@ -7,10 +7,33 @@ import Ariadne from '../../util/Ariadne';
 const VocabulariumListGridsContainer = props => {
     const [listStructure, setListStructure] = useState([]);
     useEffect(() => {
-        if (props.dictionary.length > 0 && listStructure.length === 0) {
+        // Calculating the length of the dictionary array according to the listStructure, to check whether or not
+        // updating is required.
+        const listStructureWordAmount =
+            listStructure.length ?
+                (listStructure
+                    // Count all the breakpoints
+                    .map(obj => Object.values(obj)[0])
+                    .reduce((a, b) => a + b) +
+                    // Count the length of the objects in the array after the last breakpoint
+                    props.dictionary.slice(
+                        Object.values(listStructure[listStructure.length - 1])[0],
+                        props.dictionary.length
+                    ).length) :
+                0;
+
+        if (
+            props.dictionary.length > 0 &&
+            (listStructureWordAmount !== props.dictionary.length)
+        ) {
             setListStructure([
                 { subst1: 0 },
-                { subst2: props.dictionary.findIndex(wordObj => wordObj.genitive !== null) }
+                {
+                    // Start at the first word with a genitive, or end at the end of the "dictionary"-array
+                    subst2: props.dictionary.findIndex(wordObj => wordObj.genitive !== null) > -1 ?
+                        props.dictionary.findIndex(wordObj => wordObj.genitive !== null) :
+                        props.dictionary.length
+                }
             ]);
         };
     }, [props.dictionary, listStructure]);
