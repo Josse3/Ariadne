@@ -18,7 +18,9 @@ const VocabulariumListGridsContainer = props => {
                         props.dictionary.length
                 }
             ]);
-            props.onRerender();
+            if (!props.editable) {
+                props.onRerender();
+            }
         }
     }, [props.dictionary, props.shouldRerender]);
 
