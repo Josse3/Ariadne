@@ -43,12 +43,13 @@ function VocabulariumList() {
     return (
         <div className="vocabularium-list">
             <Header />
-            <h1 className="title">(Ἡδε ἡ χάρτη ἔτι κατασκευάζεται)</h1>
-            <div className="searchbar">
-                <input type="text" placeholder="Vul uw zoekterm in..." onChange={handleSearchTermChange} />
-                <button>
-                    <i className="fas fa-search"></i>
-                </button>
+            <div className="searchbar-container">
+                <div className="searchbar">
+                    <input type="text" placeholder="Vul uw zoekterm in..." onChange={handleSearchTermChange} />
+                    <button>
+                        <i className="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
             <VocabulariumListGridsContainer
                 editable={false}
