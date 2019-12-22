@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 // CSS
 import './AddTool.css';
@@ -98,6 +98,7 @@ function AddTool() {
             if (i >= index) {
                 word.id--;
             }
+            return undefined;
         })
 
         // Close modal
