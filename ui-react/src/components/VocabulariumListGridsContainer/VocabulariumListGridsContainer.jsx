@@ -6,26 +6,9 @@ import Ariadne from '../../util/Ariadne';
 
 const VocabulariumListGridsContainer = props => {
     const [listStructure, setListStructure] = useState([]);
-    useEffect(() => {
-        // Calculating the length of the dictionary array according to the listStructure, to check whether or not
-        // updating is required.
-        const listStructureWordAmount =
-            listStructure.length ?
-                (listStructure
-                    // Count all the breakpoints
-                    .map(obj => Object.values(obj)[0])
-                    .reduce((a, b) => a + b) +
-                    // Count the length of the objects in the array after the last breakpoint
-                    props.dictionary.slice(
-                        Object.values(listStructure[listStructure.length - 1])[0],
-                        props.dictionary.length
-                    ).length) :
-                0;
 
-        if (
-            props.dictionary.length > 0 &&
-            (listStructureWordAmount !== props.dictionary.length)
-        ) {
+    useEffect(() => {
+        if (props.shouldRerender || props.dictionary.length > 0) {
             setListStructure([
                 { subst1: 0 },
                 {
@@ -35,8 +18,9 @@ const VocabulariumListGridsContainer = props => {
                         props.dictionary.length
                 }
             ]);
-        };
-    }, [props.dictionary, listStructure]);
+            props.onRerender();
+        }
+    }, [props.dictionary, props.shouldRerender]);
 
     return (
         <div className="vocabularium-list-grids-container">

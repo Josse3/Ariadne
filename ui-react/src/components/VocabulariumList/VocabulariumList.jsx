@@ -9,6 +9,7 @@ function VocabulariumList() {
     const [dictionary, setDictionary] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [matchingWords, setMatchingWords] = useState([]);
+    const [listShouldRerender, setListShouldRerender] = useState(true); // True to render on mount
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,12 +35,17 @@ function VocabulariumList() {
         }));
     }, [searchTerm, dictionary]);
 
+    const handleSearchTermChange = event => {
+        setListShouldRerender(true);
+        setSearchTerm(event.target.value);
+    }
+
     return (
         <div className="vocabularium-list">
             <Header />
             <h1 className="title">(Ἡδε ἡ χάρτη ἔτι κατασκευάζεται)</h1>
             <div className="searchbar">
-                <input type="text" placeholder="Vul uw zoekterm in..." onChange={e => setSearchTerm(e.target.value)} />
+                <input type="text" placeholder="Vul uw zoekterm in..." onChange={handleSearchTermChange} />
                 <button>
                     <i className="fas fa-search"></i>
                 </button>
@@ -47,6 +53,8 @@ function VocabulariumList() {
             <VocabulariumListGridsContainer
                 editable={false}
                 dictionary={matchingWords}
+                shouldRerender={listShouldRerender}
+                onRerender={() => setListShouldRerender(false)}
             />
         </div>
     )
