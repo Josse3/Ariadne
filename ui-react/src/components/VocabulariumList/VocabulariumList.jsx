@@ -4,14 +4,11 @@ import './VocabulariumList.css';
 // Components
 import Header from '../Header/Header';
 import VocabulariumListGridsContainer from '../VocabulariumListGridsContainer/VocabulariumListGridsContainer';
-// Util
-import Ariadne from '../../util/Ariadne';
 
 function VocabulariumList() {
     const [dictionary, setDictionary] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [matchingWords, setMatchingWords] = useState([]);
-    const [wordListHTML, setWordListHTML] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
